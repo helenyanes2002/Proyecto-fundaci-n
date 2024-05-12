@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Fundacion.Shared.Entidades
@@ -10,11 +11,6 @@ namespace Fundacion.Shared.Entidades
     public class Donante
     {
         public int Id { get; set; }
-
-        [Display(Name = "Documento")]
-        [MaxLength(20, ErrorMessage = "No se permiten más de 20 dígitos")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string Documento { get; set; }
 
         [Display(Name = "Nombre")]
         [MaxLength(50, ErrorMessage = "No se permiten más de 50 caracteres")]
@@ -36,5 +32,12 @@ namespace Fundacion.Shared.Entidades
         [MaxLength(20, ErrorMessage = "No se permiten más de 20 dígitos")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Telefono { get; set;}
+
+        //Relaciones
+        public int EmpleadoId { get; set; }
+        [JsonIgnore]
+        public Empleado Empleados { get; set; }
+
+
     }
 }

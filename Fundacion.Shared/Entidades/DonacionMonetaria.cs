@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Fundacion.Shared.Entidades
@@ -30,5 +31,14 @@ namespace Fundacion.Shared.Entidades
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public DateTime Fecha { get; set; }
+
+        //Relaciones 
+        public ICollection<DonacionMonetariaGasto> DonacionesMonetariasGastos { get; set; }
+
+        public int DonanteId { get; set; }
+
+        [JsonIgnore]
+        public Donante Donantes { get; set; }
+
     }
 }

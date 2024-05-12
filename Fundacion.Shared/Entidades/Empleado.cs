@@ -11,11 +11,6 @@ namespace Fundacion.Shared.Entidades
     {
         public int Id { get; set; }
 
-        [Display(Name = "Documento")]
-        [MaxLength(20, ErrorMessage = "No se permiten más de 20 dígitos")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string Documento { get; set; }
-
         [Display(Name = "Nombre")]
         [MaxLength(50, ErrorMessage = "No se permiten más de 50 caracteres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -35,5 +30,6 @@ namespace Fundacion.Shared.Entidades
         [MaxLength(20, ErrorMessage = "No se permiten más de 20 dígitos")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int Salario { get; set; }
+
     }
 }

@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Fundacion.API.Data
 {
-    public class DataContext:DbContext
+    public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options):base(options) {      
+        public DataContext(DbContextOptions<DataContext> options) : base(options) {
+
+            Database.EnsureCreated();
         }
 
         public DbSet<Donante> Donantes { get; set; }
@@ -17,8 +19,9 @@ namespace Fundacion.API.Data
         public DbSet<Beneficiario> Beneficiarios { get; set; }
         public DbSet<Voluntario> Voluntarios { get; set; }
         public DbSet<Empleado> Empleados { get; set; }
-
-
+        public DbSet<EventoVoluntario> EventosVoluntarios { get; set; }
+        public DbSet<DonacionMonetariaGasto> DonacionesMonetariasGastos { get; set; }
+        public DbSet<ProgramaBeneficiario> ProgramasBeneficiarios { get; set; }
 
 
     }

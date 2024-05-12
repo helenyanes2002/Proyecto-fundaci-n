@@ -30,5 +30,9 @@ namespace Fundacion.Shared.Entidades
         [MaxLength(100, ErrorMessage = "No se permiten más de 100 caracteres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Categoria { get; set; }
+
+        //Relaciones 
+        public ICollection<DonacionMonetariaGasto> DonacionesMonetariasGastos { get; set; }
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Fundacion.Shared.Entidades
@@ -35,6 +36,9 @@ namespace Fundacion.Shared.Entidades
         [MaxLength(20, ErrorMessage = "No se permiten más de 20 dígitos")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int Presupuesto { get; set; }
+
+        //Relaciones
+        public ICollection<ProgramaBeneficiario> ProgramasBeneficiarios { get; set; }
 
     }
 }
