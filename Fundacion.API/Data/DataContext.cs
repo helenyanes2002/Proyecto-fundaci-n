@@ -1,13 +1,14 @@
-﻿using Fundacion.Shared.Entidades;
+﻿using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Fundacion.Shared.Entidades;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fundacion.API.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options) {
+        public DataContext(DbContextOptions<DataContext> options) : base(options) 
+        {
 
-            Database.EnsureCreated();
         }
 
         public DbSet<Donante> Donantes { get; set; }
@@ -23,6 +24,9 @@ namespace Fundacion.API.Data
         public DbSet<DonacionMonetariaGasto> DonacionesMonetariasGastos { get; set; }
         public DbSet<ProgramaBeneficiario> ProgramasBeneficiarios { get; set; }
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

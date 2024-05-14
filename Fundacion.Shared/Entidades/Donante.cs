@@ -35,6 +35,7 @@ namespace Fundacion.Shared.Entidades
 
         //Relaciones
         public int EmpleadoId { get; set; }
+
         [JsonIgnore]
         public Empleado Empleados { get; set; }
 
