@@ -1,0 +1,74 @@
+﻿@page "/donacionesMateriales/edit/{Id:int}"
+@using System.Net
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService sweetAlertService
+
+<h3>Editar</h3>
+
+@if (donacionMaterial is null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <DonacionMaterialForm @ref="donacionMaterialForm"  DonacionMaterial="donacionMaterial" OnValidSubmit="Editar" ReturnAction="Return"/>
+
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private DonacionMaterial donacionMaterial = new DonacionMaterial();
+    private DonacionMaterialForm donacionMaterialForm = new DonacionMaterialForm();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var responseHttp = await repository.GetAsync<DonacionMaterial>($"api/donacionesMateriales/{Id}");
+        if (responseHttp.Error)
+        {
+            if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/donacionesMateriales");
+            }
+            else
+            {
+                var messsage = await responseHttp.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", messsage, SweetAlertIcon.Error);
+            }
+        }
+        else
+        {
+            donacionMaterial = responseHttp.Response;
+        }
+    }
+
+
+    private async Task Editar()
+    {
+         var responseHttp = await repository.PutAsync("/api/donacionesMateriales", donacionMaterial);
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+    await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+
+    Return();
+    var toast = sweetAlertService.Mixin(new SweetAlertOptions
+    {
+        Toast = true,
+        Position = SweetAlertPosition.BottomEnd,
+        ShowConfirmButton = true,
+        Timer = 3000
+    });
+    await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Cambios guardados con éxito.");
+}
+
+        private void Return()
+        {
+        donacionMaterialForm!.FormularioPosteadoConExito = true;
+        navigationManager.NavigateTo("/donacionesMateriales");
+        }
+   
+}

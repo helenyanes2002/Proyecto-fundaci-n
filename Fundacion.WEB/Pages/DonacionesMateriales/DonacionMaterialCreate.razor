@@ -1,0 +1,41 @@
+﻿@page "/donacionesMaterialess/create"
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService sweetAlertService
+
+<h3>Crear</h3>
+
+<DonacionMaterialForm @ref="donacionMaterialForm" DonacionMaterial="donacionMaterial" OnValidSubmit="Create" ReturnAction="Return"/>
+
+@code {
+    private DonacionMaterial donacionMaterial = new DonacionMaterial();
+    private DonacionMaterialForm donacionMaterialForm = new DonacionMaterialForm();
+
+    private async Task Create()
+    {
+        var responseHttp = await repository.PostAsync("/api/donacionesMateriales", donacionMaterial);
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+
+        Return();
+        var toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+
+        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con éxito");
+    }
+
+    private void Return()
+    {
+        donacionMaterialForm!.FormularioPosteadoConExito = true;
+        navigationManager.NavigateTo("/donacionesMateriales");
+    }
+}

@@ -2,9 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <BlazorWebAssemblyEnableLinking>true</BlazorWebAssemblyEnableLinking>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Pages\Beneficiarios - Copy\**" />
+    <Content Remove="Pages\Beneficiarios - Copy\**" />
+    <EmbeddedResource Remove="Pages\Beneficiarios - Copy\**" />
+    <None Remove="Pages\Beneficiarios - Copy\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CurrieTechnologies.Razor.SweetAlert2" Version="5.6.0" />
@@ -14,6 +22,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fundacion.Shared\Fundacion.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\DonacionesMonetariasGastos\" />
   </ItemGroup>
 
 </Project>
