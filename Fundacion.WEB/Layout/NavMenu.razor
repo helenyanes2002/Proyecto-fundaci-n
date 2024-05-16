@@ -1,6 +1,6 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Fundacion.WEB</a>
+        <a class="navbar-brand" href="">Fundacón.WEB</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -15,18 +15,28 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="owners">
+            <NavLink class="nav-link" href="/beneficiarios">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Beneficiarios
             </NavLink>
         </div>
-       
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="donacionesMateriales">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> DonacionesMateriales
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="donacionesMonetarias">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> DonacionesMonetarias
+            </NavLink>
+        </div>
+
     </nav>
 </div>
 
 @code {
     private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {

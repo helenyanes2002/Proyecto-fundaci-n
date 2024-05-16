@@ -1,0 +1,99 @@
+﻿@inject SweetAlertService swal
+
+
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label>Monto:</label>
+        <div>
+            <InputNumber width="10" @bind-Value="DonacionMonetaria.Monto"></InputNumber>
+            <ValidationMessage For="@(() => DonacionMonetaria.Monto)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Proposito:</label>
+        <div>
+            <InputText width="10" @bind-Value="DonacionMonetaria.Proposito"></InputText>
+            <ValidationMessage For="@(() => DonacionMonetaria.Proposito)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>MetodoPago:</label>
+        <div>
+            <InputText width="10" @bind-Value="DonacionMonetaria.MetodoPago"></InputText>
+            <ValidationMessage For="@(() => DonacionMonetaria.MetodoPago)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Fecha:</label>
+        <div>
+            <InputDate width="10" @bind-Value="DonacionMonetaria.Fecha"></InputDate>
+            <ValidationMessage For="@(() => DonacionMonetaria.Fecha)" />
+        </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit"><i class="bi bi-floppy" />Guardar Cambios</button>
+    <button class="btn btn-info" type="reset"><i class="bi bi-x-circle" />Limpiar</button>
+    <button class="btn btn-success" onclick="ReturnAction"><i class="bi bi-arrow-left" />Regresar</button>
+</EditForm>
+@code {
+
+    private EditContext editContext = null!;
+    protected override void OnInitialized()
+    {
+        editContext = new(DonacionMonetaria);
+    }
+
+    [Parameter]
+    [EditorRequired]
+    public DonacionMonetaria DonacionMonetaria { get; set; } = null!;
+
+    [Parameter]
+    [EditorRequired]
+    public EventCallback OnValidSubmit { get; set; }
+
+
+    [EditorRequired]
+    [Parameter]
+    public EventCallback ReturnAction { get; set; }
+
+    public bool FormularioPosteadoConExito { get; set; } = false;
+
+
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        var formularioFueEditado = editContext.IsModified();
+
+        if (!formularioFueEditado)
+        {
+            return;
+        }
+
+        if (FormularioPosteadoConExito)
+        {
+            return;
+        }
+
+        var resultado = await swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Deseas abandonar la página y perder los cambios?",
+                Icon = SweetAlertIcon.Warning,
+                ShowCancelButton = true
+            });
+
+        var confirmado = !string.IsNullOrEmpty(resultado.Value);
+
+        if (confirmado)
+        {
+            return;
+        }
+
+        context.PreventNavigation();
+    }
+}
