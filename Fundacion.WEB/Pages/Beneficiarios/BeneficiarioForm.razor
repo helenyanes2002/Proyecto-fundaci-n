@@ -1,4 +1,9 @@
-﻿@inject SweetAlertService swal
+﻿@using Fundacion.Shared.Entidades
+@using Fundacion.WEB.Repositories
+@using Fundacion.WEB.Shared
+
+@inject IRepository repository
+@inject SweetAlertService swal
 
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
@@ -15,7 +20,7 @@
     <div class="mb-3">
         <label>Edad:</label>
         <div>
-            <InputNumber width="10" @bind-Value="Beneficiario.Edad"></InputNumber>
+            <InputNumber @bind-Value="Beneficiario.Edad" Step="1"></InputNumber>
             <ValidationMessage For="@(() => Beneficiario.Edad)" />
         </div>
     </div>

@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="Pages\Beneficiarios - Copy\**" />
+    <Compile Remove="Pages\DonacionesMonetariasGastos\**" />
     <Content Remove="Pages\Beneficiarios - Copy\**" />
+    <Content Remove="Pages\DonacionesMonetariasGastos\**" />
     <EmbeddedResource Remove="Pages\Beneficiarios - Copy\**" />
+    <EmbeddedResource Remove="Pages\DonacionesMonetariasGastos\**" />
     <None Remove="Pages\Beneficiarios - Copy\**" />
+    <None Remove="Pages\DonacionesMonetariasGastos\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,10 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fundacion.Shared\Fundacion.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\DonacionesMonetariasGastos\" />
   </ItemGroup>
 
 </Project>

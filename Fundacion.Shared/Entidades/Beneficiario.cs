@@ -17,7 +17,6 @@ namespace Fundacion.Shared.Entidades
         public string Nombre { get; set; }
 
         [Display(Name = "Edad")]
-        [MaxLength(5, ErrorMessage = "No se permiten más de 5 dígitos")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int Edad { get; set; }
 
