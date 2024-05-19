@@ -13,7 +13,6 @@ namespace Fundacion.Shared.Entidades
         public int Id { get; set; }
 
         [Display(Name = "Monto")]
-        [MaxLength(20, ErrorMessage = "No se permiten más de 20 dígitos")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int Monto { get; set; }
 

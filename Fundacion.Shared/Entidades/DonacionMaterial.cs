@@ -18,7 +18,6 @@ namespace Fundacion.Shared.Entidades
         public string Descripcion { get; set; }
 
         [Display(Name = "Cantidad")]
-        [MaxLength(20, ErrorMessage = "No se permiten más de 20 dígitos")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int Cantidad { get; set; }
 

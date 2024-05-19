@@ -33,7 +33,6 @@ namespace Fundacion.Shared.Entidades
         public DateTime FechaFin { get; set; }
 
         [Display(Name = "Presupuesto")]
-        [MaxLength(20, ErrorMessage = "No se permiten más de 20 dígitos")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int Presupuesto { get; set; }
 

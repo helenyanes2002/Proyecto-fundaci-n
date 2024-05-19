@@ -7,7 +7,7 @@ using Fundacion.Shared.Entidades;
 namespace Fundacion.API.Controllers
 {
     [ApiController]
-    [Route("/api/donacionesmonetariasgastos")]
+    [Route("/api/donacionesMonetariasGastos")]
     public class DonacionesMonetariasGastosController : ControllerBase
     {
         private readonly DataContext _context;
