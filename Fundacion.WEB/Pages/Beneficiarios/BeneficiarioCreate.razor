@@ -5,7 +5,7 @@
 
 <h3>Crear</h3>
 
-<BeneficiarioForm @ref="beneficiarioForm" Beneficiario="beneficiario" OnValidSubmit="Create" ReturnAction="Return"/>
+<BeneficiarioForm @ref="beneficiarioForm" Beneficiario="beneficiario" OnSubmit="Create" ReturnAction="Return" />
 
 @code {
     private Beneficiario beneficiario = new Beneficiario();
@@ -35,7 +35,6 @@
 
     private void Return()
     {
-        beneficiarioForm!.FormularioPosteadoConExito = true;
         navigationManager.NavigateTo("/beneficiarios");
     }
 }

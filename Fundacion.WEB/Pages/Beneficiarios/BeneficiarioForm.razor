@@ -7,7 +7,8 @@
 
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
-<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+
+<EditForm Model="Beneficiario" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
         <label>Nombre:</label>
@@ -43,7 +44,7 @@
 
     <button class="btn btn-primary" type="submit"><i class="bi bi-floppy" />Guardar Cambios</button>
     <button class="btn btn-info" type="reset"><i class="bi bi-x-circle" />Limpiar</button>
-    <button class="btn btn-success" onclick="ReturnAction"><i class="bi bi-arrow-left" />Regresar</button>
+    <button class="btn btn-success" @onclick="ReturnAction"><i class="bi bi-arrow-left" />Regresar</button>
 </EditForm>
 @code {
 
@@ -59,7 +60,7 @@
 
     [Parameter]
     [EditorRequired]
-    public EventCallback OnValidSubmit { get; set; }
+    public EventCallback OnSubmit { get; set; }
 
 
     [EditorRequired]
@@ -67,7 +68,6 @@
     public EventCallback ReturnAction { get; set; }
 
     public bool FormularioPosteadoConExito { get; set; } = false;
-
 
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)

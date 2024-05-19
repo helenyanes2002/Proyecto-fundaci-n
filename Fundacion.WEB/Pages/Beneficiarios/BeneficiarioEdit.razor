@@ -12,7 +12,7 @@
 }
 else
 {
-    <BeneficiarioForm @ref="beneficiarioForm"  Beneficiario="beneficiario" OnValidSubmit="Editar" ReturnAction="Return"/>
+    <BeneficiarioForm @ref="beneficiarioForm" Beneficiario="beneficiario" OnSubmit="Editar" ReturnAction="Return" />
 
 }
 
@@ -50,25 +50,24 @@ else
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-    await sweetAlertService.FireAsync("Error", message);
+            await sweetAlertService.FireAsync("Error", message);
             return;
         }
 
-    Return();
-    var toast = sweetAlertService.Mixin(new SweetAlertOptions
-    {
-        Toast = true,
-        Position = SweetAlertPosition.BottomEnd,
-        ShowConfirmButton = true,
-        Timer = 3000
-    });
-    await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Cambios guardados con éxito.");
-}
-
-        private void Return()
+        Return();
+        var toast = sweetAlertService.Mixin(new SweetAlertOptions
         {
-        beneficiarioForm!.FormularioPosteadoConExito = true;
+            Toast = true,
+            Position = SweetAlertPosition.BottomEnd,
+            ShowConfirmButton = true,
+            Timer = 3000
+        });
+        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Cambios guardados con éxito.");
+    }
+
+    private void Return()
+    {
         navigationManager.NavigateTo("/beneficiarios");
-        }
+    }
    
 }
