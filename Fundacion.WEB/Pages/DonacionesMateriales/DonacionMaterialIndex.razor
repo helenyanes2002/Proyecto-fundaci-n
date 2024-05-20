@@ -10,7 +10,7 @@
     <div class="card-header">
         <span>
             <i class="bi bi-person" /> DonacionesMateriales
-            <a class="btn btn-primary btn-sm float-end" href="/donacionesMateriales/create"><i class="bi bi-plus-circle" />New DonacionMaterial</a>
+            <a class="btn btn-primary btn-sm float-end" href="/donacionesMateriales/create"><i class="bi bi-plus-circle" />Nueva Donación Material</a>
 
         </span>
     </div>
@@ -23,7 +23,22 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th></th>
+                            <td></td>
+                            <td>
+                                Descripción
+                            </td>
+                            <td>
+                                Cantidad
+                            </td>
+                            <td>
+                                Fecha
+                            </td>
+                            <td>
+                                Id Donante
+                            </td>
+                            <td>
+                                Id Programa
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +58,12 @@
                                 </td>
                                 <td>
                                     @item.Fecha
+                                </td>
+                                <td>
+                                    @item.DonanteId
+                                </td>
+                                <td>
+                                    @item.ProgramaId
                                 </td>
                             </tr>
                         }

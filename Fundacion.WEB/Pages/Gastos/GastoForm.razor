@@ -8,45 +8,38 @@
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
-<EditForm Model="DonacionMaterial" OnSubmit="OnSubmit">
+<EditForm Model="Gasto" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label>Descripcion:</label>
+        <label>Descripción:</label>
         <div>
-            <InputText width="10" @bind-Value="DonacionMaterial.Descripcion"></InputText>
-            <ValidationMessage For="@(() => DonacionMaterial.Descripcion)" />
+            <InputText width="10" @bind-Value="Gasto.Descripcion"></InputText>
+            <ValidationMessage For="@(() => Gasto.Descripcion)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>Cantidad:</label>
+        <label>Monto:</label>
         <div>
-            <InputNumber @bind-Value="DonacionMaterial.Cantidad" Step="1"></InputNumber>
-            <ValidationMessage For="@(() => DonacionMaterial.Cantidad)" />
+            <InputNumber @bind-Value="Gasto.Monto" Step="1"></InputNumber>
+            <ValidationMessage For="@(() => Gasto.Monto)" />
         </div>
     </div>
+
 
     <div class="mb-3">
         <label>Fecha:</label>
         <div>
-            <InputDate width="10" @bind-Value="DonacionMaterial.Fecha"></InputDate>
-            <ValidationMessage For="@(() => DonacionMaterial.Fecha)" />
+            <InputDate width="10" @bind-Value="Gasto.Fecha"></InputDate>
+            <ValidationMessage For="@(() => Gasto.Fecha)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>id Donante:</label>
+        <label>Categoría:</label>
         <div>
-            <InputNumber @bind-Value="DonacionMaterial.DonanteId" Step="1"></InputNumber>
-            <ValidationMessage For="@(() => DonacionMaterial.DonanteId)" />
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label>Id Programa:</label>
-        <div>
-            <InputNumber @bind-Value="DonacionMaterial.ProgramaId" Step="1"></InputNumber>
-            <ValidationMessage For="@(() => DonacionMaterial.ProgramaId)" />
+            <InputText width="10" @bind-Value="Gasto.Categoria"></InputText>
+            <ValidationMessage For="@(() => Gasto.Categoria)" />
         </div>
     </div>
 
@@ -59,12 +52,12 @@
     private EditContext editContext = null!;
     protected override void OnInitialized()
     {
-        editContext = new(DonacionMaterial);
+        editContext = new(Gasto);
     }
 
     [Parameter]
     [EditorRequired]
-    public DonacionMaterial DonacionMaterial { get; set; } = null!;
+    public Gasto Gasto { get; set; } = null!;
 
     [Parameter]
     [EditorRequired]
@@ -95,7 +88,7 @@
         var resultado = await swal.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = "¿Deseas abandonar la página y perder los cambios?",
+                Text = "¿Deseas abandonar la p gina y perder los cambios?",
                 Icon = SweetAlertIcon.Warning,
                 ShowCancelButton = true
             });

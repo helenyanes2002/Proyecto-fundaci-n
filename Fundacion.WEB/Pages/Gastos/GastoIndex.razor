@@ -1,4 +1,4 @@
-﻿@page "/eventos"
+﻿@page "/gastos"
 @using Fundacion.Shared.Entidades
 @using Fundacion.WEB.Repositories
 @using Fundacion.WEB.Shared
@@ -9,15 +9,15 @@
 <div class="card">
     <div class="card-header">
         <span>
-            <i class="bi bi-person" /> Eventos
-            <a class="btn btn-primary btn-sm float-end" href="/eventos/create"><i class="bi bi-plus-circle" />Nuevo Evento</a>
+            <i class="bi bi-person" /> Gastos
+            <a class="btn btn-primary btn-sm float-end" href="/gastos/create"><i class="bi bi-plus-circle" />Nuevo Gasto</a>
 
         </span>
     </div>
 
     <div class="card-body">
 
-        <GenericList MyList="Eventos">
+        <GenericList MyList="Gastos">
 
             <Body>
                 <table class="table table-striped">
@@ -25,47 +25,46 @@
                         <tr>
                             <td></td>
                             <td>
-                                Nombre
+                                Id
                             </td>
                             <td>
                                 Descripción
                             </td>
                             <td>
+                                Monto
+                            </td>
+                            <td>
                                 Fecha
                             </td>
                             <td>
-                                Ubicación
-                            </td>
-                            <td>
-                                Id Programa
+                                Categoría
                             </td>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Eventos!)
+                        @foreach (var item in Gastos!)
                         {
                             <tr>
                                 <td>
-                                    <a href="/eventos/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square" /> Editar</a>
+                                    <a href="/gastos/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square" /> Editar</a>
                                     <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash-fill" /> Borrar</button>
                                 </td>
 
                                 <td>
-                                    @item.Nombre
+                                    @item.Id
                                 </td>
                                 <td>
                                     @item.Descripcion
+                                </td>
+                                <td>
+                                    @item.Monto
                                 </td>
                                 <td>
                                     @item.Fecha
                                 </td>
 
                                 <td>
-                                    @item.Ubicacion
-                                </td>
-
-                                <td>
-                                    @item.ProgramaId
+                                    @item.Categoria
                                 </td>
                             </tr>
                         }
@@ -78,7 +77,7 @@
 
 
 @code {
-    public List<Evento> Eventos { get; set; }
+    public List<Gasto> Gastos { get; set; }
 
 
     protected override async Task OnInitializedAsync()
@@ -88,24 +87,24 @@
 
     private async Task LoadAsync()
     {
-        var responseHttp = await repository.GetAsync<List<Evento>>("api/eventos");
+        var responseHttp = await repository.GetAsync<List<Gasto>>("api/gastos");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        Eventos = responseHttp.Response;
+        Gastos = responseHttp.Response;
     }
 
 
 
-    private async Task DeleteAsycn(Evento evento)
+    private async Task DeleteAsycn(Gasto gasto)
     {
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
-                Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar el evento: {evento.Nombre}?",
+                Title = "Confirmaci n",
+                Text = $" Estas seguro de querer borrar el gasto: {gasto.Descripcion}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });
@@ -115,12 +114,12 @@
             return;
         }
 
-        var responseHttp = await repository.DeleteAsync<Evento>($"api/eventos/{evento.Id}");
+        var responseHttp = await repository.DeleteAsync<Gasto>($"api/gastos/{gasto.Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("eventos");
+                navigationManager.NavigateTo("gastos");
             }
             else
             {
@@ -142,3 +141,4 @@
     }
 
 }
+

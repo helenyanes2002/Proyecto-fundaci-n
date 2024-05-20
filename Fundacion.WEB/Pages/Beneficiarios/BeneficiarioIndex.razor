@@ -10,7 +10,7 @@
     <div class="card-header">
         <span>
             <i class="bi bi-person" /> Beneficiarios
-            <a class="btn btn-primary btn-sm float-end" href="/beneficiarios/create"><i class="bi bi-plus-circle"/>New Beneficiario</a>
+            <a class="btn btn-primary btn-sm float-end" href="/beneficiarios/create"><i class="bi bi-plus-circle"/>Nuevo Beneficiario</a>
 
         </span>
 </div>
@@ -19,14 +19,27 @@
 
 <GenericList MyList="Beneficiarios">
 
-    <Body>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
+
+            <Body>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>
+                                Nombre
+                            </td>
+                            <td>
+                                Edad
+                            </td>
+                            <td>
+                                Información
+                            </td>
+                            <td>
+                                Programa
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
                 @foreach (var item in Beneficiarios!)
                 {
                     <tr>

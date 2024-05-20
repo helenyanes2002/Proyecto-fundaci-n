@@ -42,6 +42,14 @@
         </div>
     </div>
 
+    <div class="mb-3">
+        <label>Id Donante:</label>
+        <div>
+            <InputNumber @bind-Value="DonacionMonetaria.DonanteId" Step="1"></InputNumber>
+            <ValidationMessage For="@(() => DonacionMonetaria.DonanteId)" />
+        </div>
+    </div>
+
     <button class="btn btn-primary" type="submit"><i class="bi bi-floppy" />Guardar Cambios</button>
     <button class="btn btn-info" type="reset"><i class="bi bi-x-circle" />Limpiar</button>
     <button class="btn btn-success" @onclick="ReturnAction"><i class="bi bi-arrow-left" />Regresar</button>

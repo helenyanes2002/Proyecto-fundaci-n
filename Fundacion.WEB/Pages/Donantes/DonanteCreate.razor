@@ -1,0 +1,40 @@
+﻿@page "/donantes/create"
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService sweetAlertService
+
+<h3>Crear</h3>
+
+<DonanteForm @ref="donanteForm" Donante="donante" OnSubmit="Create" ReturnAction="Return" />
+
+@code {
+    private Donante donante = new Donante();
+    private DonanteForm donanteForm = new DonanteForm();
+
+    private async Task Create()
+    {
+        var responseHttp = await repository.PostAsync("/api/donantes", donante);
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+
+        Return();
+        var toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+
+        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con éxito");
+    }
+
+    private void Return()
+    {
+        navigationManager.NavigateTo("/donantes");
+    }
+}

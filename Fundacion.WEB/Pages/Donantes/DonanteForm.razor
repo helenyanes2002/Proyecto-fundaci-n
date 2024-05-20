@@ -8,45 +8,45 @@
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
-<EditForm Model="DonacionMaterial" OnSubmit="OnSubmit">
+<EditForm Model="Donante" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label>Descripcion:</label>
+        <label>Nombre:</label>
         <div>
-            <InputText width="10" @bind-Value="DonacionMaterial.Descripcion"></InputText>
-            <ValidationMessage For="@(() => DonacionMaterial.Descripcion)" />
+            <InputText width="10" @bind-Value="Donante.Nombre"></InputText>
+            <ValidationMessage For="@(() => Donante.Nombre)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>Cantidad:</label>
+        <label>Direccion:</label>
         <div>
-            <InputNumber @bind-Value="DonacionMaterial.Cantidad" Step="1"></InputNumber>
-            <ValidationMessage For="@(() => DonacionMaterial.Cantidad)" />
+            <InputText width="10" @bind-Value="Donante.Direccion"></InputText>
+            <ValidationMessage For="@(() => Donante.Direccion)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>Fecha:</label>
+        <label>Correo:</label>
         <div>
-            <InputDate width="10" @bind-Value="DonacionMaterial.Fecha"></InputDate>
-            <ValidationMessage For="@(() => DonacionMaterial.Fecha)" />
+            <InputText width="10" @bind-Value="Donante.Correo"></InputText>
+            <ValidationMessage For="@(() => Donante.Correo)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>id Donante:</label>
+        <label>Telefono:</label>
         <div>
-            <InputNumber @bind-Value="DonacionMaterial.DonanteId" Step="1"></InputNumber>
-            <ValidationMessage For="@(() => DonacionMaterial.DonanteId)" />
+            <InputText width="10" @bind-Value="Donante.Telefono"></InputText>
+            <ValidationMessage For="@(() => Donante.Telefono)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>Id Programa:</label>
+        <label>Atendido por:</label>
         <div>
-            <InputNumber @bind-Value="DonacionMaterial.ProgramaId" Step="1"></InputNumber>
-            <ValidationMessage For="@(() => DonacionMaterial.ProgramaId)" />
+            <InputNumber @bind-Value="Donante.EmpleadoId" Step="1"></InputNumber>
+            <ValidationMessage For="@(() => Donante.EmpleadoId)" />
         </div>
     </div>
 
@@ -59,12 +59,12 @@
     private EditContext editContext = null!;
     protected override void OnInitialized()
     {
-        editContext = new(DonacionMaterial);
+        editContext = new(Donante);
     }
 
     [Parameter]
     [EditorRequired]
-    public DonacionMaterial DonacionMaterial { get; set; } = null!;
+    public Donante Donante { get; set; } = null!;
 
     [Parameter]
     [EditorRequired]
@@ -95,7 +95,7 @@
         var resultado = await swal.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = "¿Deseas abandonar la página y perder los cambios?",
+                Text = "¿Deseas abandonar la p gina y perder los cambios?",
                 Icon = SweetAlertIcon.Warning,
                 ShowCancelButton = true
             });
@@ -110,3 +110,4 @@
         context.PreventNavigation();
     }
 }
+
