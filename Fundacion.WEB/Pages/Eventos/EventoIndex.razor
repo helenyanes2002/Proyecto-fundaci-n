@@ -1,4 +1,4 @@
-﻿@page "/donacionesMonetarias"
+﻿@page "/eventos"
 @using Fundacion.Shared.Entidades
 @using Fundacion.WEB.Repositories
 @using Fundacion.WEB.Shared
@@ -9,15 +9,15 @@
 <div class="card">
     <div class="card-header">
         <span>
-            <i class="bi bi-person" /> DonacionesMonetarias
-            <a class="btn btn-primary btn-sm float-end" href="/donacionesMonetarias/create"><i class="bi bi-plus-circle" />New DonacionMonetaria</a>
+            <i class="bi bi-person" /> Eventos
+            <a class="btn btn-primary btn-sm float-end" href="/eventos/create"><i class="bi bi-plus-circle" />New Evento</a>
 
         </span>
     </div>
 
     <div class="card-body">
 
-        <GenericList MyList="DonacionesMonetarias">
+        <GenericList MyList="Eventos">
 
             <Body>
                 <table class="table table-striped">
@@ -27,26 +27,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in DonacionesMonetarias!)
+                        @foreach (var item in Eventos!)
                         {
                             <tr>
                                 <td>
-                                    <a href="/donacionesMonetarias/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square" /> Editar</a>
+                                    <a href="/eventos/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square" /> Editar</a>
                                     <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash-fill" /> Borrar</button>
                                 </td>
 
                                 <td>
-                                    @item.Monto
+                                    @item.Nombre
                                 </td>
                                 <td>
-                                    @item.Proposito
+                                    @item.Descripcion
                                 </td>
                                 <td>
-                                    @item.MetodoPago
+                                    @item.Fecha
                                 </td>
 
                                 <td>
-                                    @item.Fecha
+                                    @item.Ubicacion
+                                </td>
+
+                                <td>
+                                    @item.ProgramaId
                                 </td>
                             </tr>
                         }
@@ -59,7 +63,7 @@
 
 
 @code {
-    public List<DonacionMonetaria> DonacionesMonetarias { get; set; }
+    public List<Evento> Eventos { get; set; }
 
 
     protected override async Task OnInitializedAsync()
@@ -69,24 +73,24 @@
 
     private async Task LoadAsync()
     {
-        var responseHttp = await repository.GetAsync<List<DonacionMonetaria>>("api/donacionesMonetarias");
+        var responseHttp = await repository.GetAsync<List<Evento>>("api/eventos");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        DonacionesMonetarias = responseHttp.Response;
+        Eventos = responseHttp.Response;
     }
 
 
 
-    private async Task DeleteAsycn(DonacionMonetaria donacionMonetaria)
+    private async Task DeleteAsycn(Evento evento)
     {
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar el donacionMonetaria: {donacionMonetaria.Proposito}?",
+                Text = $"¿Estas seguro de querer borrar el evento: {evento.Nombre}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });
@@ -96,12 +100,12 @@
             return;
         }
 
-        var responseHttp = await repository.DeleteAsync<DonacionMonetaria>($"api/donacionesMonetarias/{donacionMonetaria.Id}");
+        var responseHttp = await repository.DeleteAsync<Evento>($"api/eventos/{evento.Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("donacionesMonetarias");
+                navigationManager.NavigateTo("eventos");
             }
             else
             {

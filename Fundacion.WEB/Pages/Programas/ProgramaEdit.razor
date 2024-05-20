@@ -1,4 +1,4 @@
-﻿@page "/donacionesMateriales/edit/{Id:int}"
+﻿@page "/programas/edit/{Id:int}"
 @using System.Net
 @inject NavigationManager navigationManager
 @inject IRepository repository
@@ -6,30 +6,30 @@
 
 <h3>Editar</h3>
 
-@if (donacionMaterial is null)
+@if (programa is null)
 {
     <p>Cargando...</p>
 }
 else
 {
-    <DonacionMaterialForm @ref="donacionMaterialForm" DonacionMaterial="donacionMaterial" OnSubmit="Editar" ReturnAction="Return" />
+    <ProgramaForm @ref="programaForm" Programa="programa" OnSubmit="Editar" ReturnAction="Return" />
 
 }
 
 @code {
     [Parameter]
     public int Id { get; set; }
-    private DonacionMaterial donacionMaterial = new DonacionMaterial();
-    private DonacionMaterialForm donacionMaterialForm = new DonacionMaterialForm();
+    private Programa programa = new Programa();
+    private ProgramaForm programaForm = new ProgramaForm();
 
     protected override async Task OnParametersSetAsync()
     {
-        var responseHttp = await repository.GetAsync<DonacionMaterial>($"api/donacionesMateriales/{Id}");
+        var responseHttp = await repository.GetAsync<Programa>($"api/programas/{Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("/donacionesMateriales");
+                navigationManager.NavigateTo("/programas");
             }
             else
             {
@@ -39,14 +39,14 @@ else
         }
         else
         {
-            donacionMaterial = responseHttp.Response;
+            programa = responseHttp.Response;
         }
     }
 
 
     private async Task Editar()
     {
-        var responseHttp = await repository.PutAsync("/api/donacionesMateriales", donacionMaterial);
+        var responseHttp = await repository.PutAsync("/api/programas", programa);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
@@ -67,7 +67,8 @@ else
 
     private void Return()
     {
-        navigationManager.NavigateTo("/donacionesMateriales");
+        navigationManager.NavigateTo("/programas");
     }
 
 }
+

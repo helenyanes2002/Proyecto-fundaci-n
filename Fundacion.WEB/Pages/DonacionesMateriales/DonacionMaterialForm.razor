@@ -1,8 +1,14 @@
-﻿@inject SweetAlertService swal
+﻿@using Fundacion.Shared.Entidades
+@using Fundacion.WEB.Repositories
+@using Fundacion.WEB.Shared
+
+@inject IRepository repository
+@inject SweetAlertService swal
 
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
-<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+
+<EditForm Model="DonacionMaterial" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
         <label>Descripcion:</label>
@@ -15,7 +21,7 @@
     <div class="mb-3">
         <label>Cantidad:</label>
         <div>
-            <InputNumber width="10" @bind-Value="DonacionMaterial.Cantidad"></InputNumber>
+            <InputNumber @bind-Value="DonacionMaterial.Cantidad" Step="1"></InputNumber>
             <ValidationMessage For="@(() => DonacionMaterial.Cantidad)" />
         </div>
     </div>
@@ -23,7 +29,7 @@
     <div class="mb-3">
         <label>Fecha:</label>
         <div>
-            <InputDate width="10" @bind-Value="DonacionMaterial.Fecha" min="@DateTime.Today"></InputDate>
+            <InputDate width="10" @bind-Value="DonacionMaterial.Fecha"></InputDate>
             <ValidationMessage For="@(() => DonacionMaterial.Fecha)" />
         </div>
     </div>
@@ -46,7 +52,7 @@
 
     [Parameter]
     [EditorRequired]
-    public EventCallback OnValidSubmit { get; set; }
+    public EventCallback OnSubmit { get; set; }
 
 
     [EditorRequired]
@@ -54,7 +60,6 @@
     public EventCallback ReturnAction { get; set; }
 
     public bool FormularioPosteadoConExito { get; set; } = false;
-
 
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)

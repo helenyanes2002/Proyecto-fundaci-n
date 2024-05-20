@@ -1,19 +1,19 @@
-﻿@page "/donacionesMonetarias/create"
+﻿@page "/programas/create"
 @inject NavigationManager navigationManager
 @inject IRepository repository
 @inject SweetAlertService sweetAlertService
 
 <h3>Crear</h3>
 
-<DonacionMonetariaForm @ref="donacionMonetariaForm" DonacionMonetaria="donacionMonetaria" OnSubmit="Create" ReturnAction="Return" />
+<ProgramaForm @ref="programaForm" Programa="programa" OnSubmit="Create" ReturnAction="Return" />
 
 @code {
-    private DonacionMonetaria donacionMonetaria = new DonacionMonetaria();
-    private DonacionMonetariaForm donacionMonetariaForm = new DonacionMonetariaForm();
+    private Programa programa = new Programa();
+    private ProgramaForm programaForm = new ProgramaForm();
 
     private async Task Create()
     {
-        var responseHttp = await repository.PostAsync("/api/donacionesMonetarias", donacionMonetaria);
+        var responseHttp = await repository.PostAsync("/api/programas", programa);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
@@ -35,6 +35,7 @@
 
     private void Return()
     {
-        navigationManager.NavigateTo("/donacionesMonetarias");
+        navigationManager.NavigateTo("/programas");
     }
 }
+

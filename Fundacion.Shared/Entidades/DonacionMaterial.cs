@@ -29,12 +29,12 @@ namespace Fundacion.Shared.Entidades
         //Relaciones 
         public int DonanteId { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public Donante Donantes { get; set; }
 
         public int ProgramaId { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public Programa Programas { get; set; }
 
 

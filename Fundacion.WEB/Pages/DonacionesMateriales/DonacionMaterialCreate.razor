@@ -5,7 +5,7 @@
 
 <h3>Crear</h3>
 
-<DonacionMaterialForm @ref="donacionMaterialForm" DonacionMaterial="donacionMaterial" OnValidSubmit="Create" ReturnAction="Return"/>
+<DonacionMaterialForm @ref="donacionMaterialForm" DonacionMaterial="donacionMaterial" OnSubmit="Create" ReturnAction="Return" />
 
 @code {
     private DonacionMaterial donacionMaterial = new DonacionMaterial();
@@ -35,7 +35,6 @@
 
     private void Return()
     {
-        donacionMaterialForm!.FormularioPosteadoConExito = true;
         navigationManager.NavigateTo("/donacionesMateriales");
     }
 }

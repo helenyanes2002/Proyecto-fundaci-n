@@ -8,37 +8,44 @@
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
-<EditForm Model="DonacionMonetaria" OnSubmit="OnSubmit">
+<EditForm Model="Evento" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label>Monto:</label>
+        <label>Nombre:</label>
         <div>
-            <InputNumber @bind-Value="DonacionMonetaria.Monto" Step="1"></InputNumber>
-            <ValidationMessage For="@(() => DonacionMonetaria.Monto)" />
+            <InputText width="10" @bind-Value="Evento.Nombre"></InputText>
+            <ValidationMessage For="@(() => Evento.Nombre)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>Proposito:</label>
+        <label>Descripcion:</label>
         <div>
-            <InputText width="10" @bind-Value="DonacionMonetaria.Proposito"></InputText>
-            <ValidationMessage For="@(() => DonacionMonetaria.Proposito)" />
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label>MetodoPago:</label>
-        <div>
-            <InputText width="10" @bind-Value="DonacionMonetaria.MetodoPago"></InputText>
-            <ValidationMessage For="@(() => DonacionMonetaria.MetodoPago)" />
+            <InputText width="10" @bind-Value="Evento.Descripcion"></InputText>
+            <ValidationMessage For="@(() => Evento.Descripcion)" />
         </div>
     </div>
 
     <div class="mb-3">
         <label>Fecha:</label>
         <div>
-            <InputDate width="10" @bind-Value="DonacionMonetaria.Fecha"></InputDate>
-            <ValidationMessage For="@(() => DonacionMonetaria.Fecha)" />
+            <InputDate width="10" @bind-Value="Evento.Fecha"></InputDate>
+            <ValidationMessage For="@(() => Evento.Fecha)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Ubicacion:</label>
+        <div>
+            <InputText width="10" @bind-Value="Evento.Ubicacion"></InputText>
+            <ValidationMessage For="@(() => Evento.Ubicacion)" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>ProgramaId:</label>
+        <div>
+            <InputNumber @bind-Value="Evento.ProgramaId" Step="1"></InputNumber>
+            <ValidationMessage For="@(() => Evento.ProgramaId)" />
         </div>
     </div>
 
@@ -51,12 +58,12 @@
     private EditContext editContext = null!;
     protected override void OnInitialized()
     {
-        editContext = new(DonacionMonetaria);
+        editContext = new(Evento);
     }
 
     [Parameter]
     [EditorRequired]
-    public DonacionMonetaria DonacionMonetaria { get; set; } = null!;
+    public Evento Evento { get; set; } = null!;
 
     [Parameter]
     [EditorRequired]

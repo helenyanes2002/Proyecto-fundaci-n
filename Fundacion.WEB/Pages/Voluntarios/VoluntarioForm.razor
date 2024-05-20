@@ -8,37 +8,53 @@
 
 <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
 
-<EditForm Model="DonacionMonetaria" OnSubmit="OnSubmit">
+<EditForm Model="Voluntario" OnSubmit="OnSubmit">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <label>Monto:</label>
+        <label>Nombre:</label>
         <div>
-            <InputNumber @bind-Value="DonacionMonetaria.Monto" Step="1"></InputNumber>
-            <ValidationMessage For="@(() => DonacionMonetaria.Monto)" />
+            <InputText width="10" @bind-Value="Voluntario.Nombre"></InputText>
+            <ValidationMessage For="@(() => Voluntario.Nombre)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>Proposito:</label>
+        <label>Direccion:</label>
         <div>
-            <InputText width="10" @bind-Value="DonacionMonetaria.Proposito"></InputText>
-            <ValidationMessage For="@(() => DonacionMonetaria.Proposito)" />
+            <InputText width="10" @bind-Value="Voluntario.Direccion"></InputText>
+            <ValidationMessage For="@(() => Voluntario.Direccion)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>MetodoPago:</label>
+        <label>Correo:</label>
         <div>
-            <InputText width="10" @bind-Value="DonacionMonetaria.MetodoPago"></InputText>
-            <ValidationMessage For="@(() => DonacionMonetaria.MetodoPago)" />
+            <InputText width="10" @bind-Value="Voluntario.Correo"></InputText>
+            <ValidationMessage For="@(() => Voluntario.Correo)" />
         </div>
     </div>
 
     <div class="mb-3">
-        <label>Fecha:</label>
+        <label>Telefono:</label>
         <div>
-            <InputDate width="10" @bind-Value="DonacionMonetaria.Fecha"></InputDate>
-            <ValidationMessage For="@(() => DonacionMonetaria.Fecha)" />
+            <InputText width="10" @bind-Value="Voluntario.Telefono"></InputText>
+            <ValidationMessage For="@(() => Voluntario.Telefono)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Disponibilidad:</label>
+        <div>
+            <InputText width="10" @bind-Value="Voluntario.Disponibilidad"></InputText>
+            <ValidationMessage For="@(() => Voluntario.Disponibilidad)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Area:</label>
+        <div>
+            <InputText width="10" @bind-Value="Voluntario.Area"></InputText>
+            <ValidationMessage For="@(() => Voluntario.Area)" />
         </div>
     </div>
 
@@ -51,12 +67,12 @@
     private EditContext editContext = null!;
     protected override void OnInitialized()
     {
-        editContext = new(DonacionMonetaria);
+        editContext = new(Voluntario);
     }
 
     [Parameter]
     [EditorRequired]
-    public DonacionMonetaria DonacionMonetaria { get; set; } = null!;
+    public Voluntario Voluntario { get; set; } = null!;
 
     [Parameter]
     [EditorRequired]

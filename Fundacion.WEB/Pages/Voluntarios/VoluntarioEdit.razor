@@ -1,4 +1,4 @@
-﻿@page "/donacionesMateriales/edit/{Id:int}"
+﻿@page "/voluntarios/edit/{Id:int}"
 @using System.Net
 @inject NavigationManager navigationManager
 @inject IRepository repository
@@ -6,30 +6,30 @@
 
 <h3>Editar</h3>
 
-@if (donacionMaterial is null)
+@if (voluntario is null)
 {
     <p>Cargando...</p>
 }
 else
 {
-    <DonacionMaterialForm @ref="donacionMaterialForm" DonacionMaterial="donacionMaterial" OnSubmit="Editar" ReturnAction="Return" />
+    <VoluntarioForm @ref="voluntarioForm" Voluntario="voluntario" OnSubmit="Editar" ReturnAction="Return" />
 
 }
 
 @code {
     [Parameter]
     public int Id { get; set; }
-    private DonacionMaterial donacionMaterial = new DonacionMaterial();
-    private DonacionMaterialForm donacionMaterialForm = new DonacionMaterialForm();
+    private Voluntario voluntario = new Voluntario();
+    private VoluntarioForm voluntarioForm = new VoluntarioForm();
 
     protected override async Task OnParametersSetAsync()
     {
-        var responseHttp = await repository.GetAsync<DonacionMaterial>($"api/donacionesMateriales/{Id}");
+        var responseHttp = await repository.GetAsync<Voluntario>($"api/voluntarios/{Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("/donacionesMateriales");
+                navigationManager.NavigateTo("/voluntarios");
             }
             else
             {
@@ -39,14 +39,14 @@ else
         }
         else
         {
-            donacionMaterial = responseHttp.Response;
+            voluntario = responseHttp.Response;
         }
     }
 
 
     private async Task Editar()
     {
-        var responseHttp = await repository.PutAsync("/api/donacionesMateriales", donacionMaterial);
+         var responseHttp = await repository.PutAsync("/api/voluntarios", voluntario);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
@@ -56,18 +56,18 @@ else
 
         Return();
         var toast = sweetAlertService.Mixin(new SweetAlertOptions
-            {
-                Toast = true,
-                Position = SweetAlertPosition.BottomEnd,
-                ShowConfirmButton = true,
-                Timer = 3000
-            });
+        {
+            Toast = true,
+            Position = SweetAlertPosition.BottomEnd,
+            ShowConfirmButton = true,
+            Timer = 3000
+        });
         await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Cambios guardados con éxito.");
     }
 
     private void Return()
     {
-        navigationManager.NavigateTo("/donacionesMateriales");
+        navigationManager.NavigateTo("/voluntarios");
     }
-
+   
 }
