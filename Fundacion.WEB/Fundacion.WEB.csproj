@@ -9,13 +9,9 @@
 
   <ItemGroup>
     <Compile Remove="Pages\Beneficiarios - Copy\**" />
-    <Compile Remove="Pages\DonacionesMonetariasGastos\**" />
     <Content Remove="Pages\Beneficiarios - Copy\**" />
-    <Content Remove="Pages\DonacionesMonetariasGastos\**" />
     <EmbeddedResource Remove="Pages\Beneficiarios - Copy\**" />
-    <EmbeddedResource Remove="Pages\DonacionesMonetariasGastos\**" />
     <None Remove="Pages\Beneficiarios - Copy\**" />
-    <None Remove="Pages\DonacionesMonetariasGastos\**" />
   </ItemGroup>
 
   <ItemGroup>

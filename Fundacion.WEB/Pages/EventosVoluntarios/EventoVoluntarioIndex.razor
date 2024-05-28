@@ -1,4 +1,4 @@
-﻿@page "/donacionesMateriales"
+﻿@page "/eventosVoluntarios"
 @using Fundacion.Shared.Entidades
 @using Fundacion.WEB.Repositories
 @using Fundacion.WEB.Shared
@@ -9,15 +9,15 @@
 <div class="card">
     <div class="card-header">
         <span>
-            <i class="bi bi-person" /> DonacionesMateriales
-            <a class="btn btn-primary btn-sm float-end" href="/donacionesMateriales/create"><i class="bi bi-plus-circle" />Nueva Donación Material</a>
+            <i class="bi bi-person" /> EventosVoluntarios
+            <a class="btn btn-primary btn-sm float-end" href="/eventosVoluntarios/create"><i class="bi bi-plus-circle" />Nuevo EventoVoluntario</a>
 
         </span>
     </div>
 
     <div class="card-body">
 
-        <GenericList MyList="DonacionesMateriales">
+        <GenericList MyList="EventosVoluntarios">
 
             <Body>
                 <table class="table table-striped">
@@ -28,47 +28,29 @@
                                 Id
                             </td>
                             <td>
-                                Descripción
+                                Id Evento
                             </td>
                             <td>
-                                Cantidad
-                            </td>
-                            <td>
-                                Fecha
-                            </td>
-                            <td>
-                                Id Donante
-                            </td>
-                            <td>
-                                Id Programa
+                                Id Voluntario
                             </td>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in DonacionesMateriales!)
+                        @foreach (var item in EventosVoluntarios!)
                         {
                             <tr>
                                 <td>
-                                    <a href="/donacionesMateriales/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square" /> Editar</a>
+                                    <a href="/eventosVoluntarios/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square" /> Editar</a>
                                     <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash-fill" /> Borrar</button>
                                 </td>
                                 <td>
                                     @item.Id
                                 </td>
                                 <td>
-                                    @item.Descripcion
+                                    @item.EventoId
                                 </td>
                                 <td>
-                                    @item.Cantidad
-                                </td>
-                                <td>
-                                    @item.Fecha
-                                </td>
-                                <td>
-                                    @item.DonanteId
-                                </td>
-                                <td>
-                                    @item.ProgramaId
+                                    @item.VoluntarioId
                                 </td>
                             </tr>
                         }
@@ -81,7 +63,7 @@
 
 
 @code {
-    public List<DonacionMaterial> DonacionesMateriales { get; set; }
+    public List<EventoVoluntario> EventosVoluntarios { get; set; }
 
 
     protected override async Task OnInitializedAsync()
@@ -91,24 +73,24 @@
 
     private async Task LoadAsync()
     {
-        var responseHttp = await repository.GetAsync<List<DonacionMaterial>>("api/donacionesMateriales");
+        var responseHttp = await repository.GetAsync<List<EventoVoluntario>>("api/eventosVoluntarios");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        DonacionesMateriales = responseHttp.Response;
+        EventosVoluntarios = responseHttp.Response;
     }
 
 
 
-    private async Task DeleteAsycn(DonacionMaterial donacionMaterial)
+    private async Task DeleteAsycn(EventoVoluntario eventoVoluntario)
     {
         var result = await sweetAlertService.FireAsync(new SweetAlertOptions
             {
-                Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar el donacionMaterial: {donacionMaterial.Descripcion}?",
+                Title = "Confirmaci n",
+                Text = $" Estas seguro de querer borrar el eventoVoluntario: {eventoVoluntario.Id}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });
@@ -118,12 +100,12 @@
             return;
         }
 
-        var responseHttp = await repository.DeleteAsync<DonacionMaterial>($"api/donacionesMateriales/{donacionMaterial.Id}");
+        var responseHttp = await repository.DeleteAsync<EventoVoluntario>($"api/eventosVoluntarios/{eventoVoluntario.Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                navigationManager.NavigateTo("donacionesMateriales");
+                navigationManager.NavigateTo("eventosVoluntarios");
             }
             else
             {

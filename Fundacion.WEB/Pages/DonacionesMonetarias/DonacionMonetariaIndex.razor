@@ -25,6 +25,9 @@
                         <tr>
                             <td></td>
                             <td>
+                                Id
+                            </td>
+                            <td>
                                 Monto
                             </td>
                             <td>
@@ -50,6 +53,9 @@
                                     <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash-fill" /> Borrar</button>
                                 </td>
 
+                                <td>
+                                    @item.Id
+                                </td>
                                 <td>
                                     @item.Monto
                                 </td>

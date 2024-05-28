@@ -25,6 +25,9 @@
                         <tr>
                             <td></td>
                             <td>
+                                Id
+                            </td>
+                            <td>
                                 Nombre
                             </td>
                             <td>
@@ -49,7 +52,9 @@
                                     <a href="/eventos/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square" /> Editar</a>
                                     <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash-fill" /> Borrar</button>
                                 </td>
-
+                                <td>
+                                    @item.Id
+                                </td>
                                 <td>
                                     @item.Nombre
                                 </td>

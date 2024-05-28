@@ -1,0 +1,40 @@
+﻿@page "/eventosVoluntarios/create"
+@inject NavigationManager navigationManager
+@inject IRepository repository
+@inject SweetAlertService sweetAlertService
+
+<h3>Crear</h3>
+
+<EventoVoluntarioForm @ref="eventoVoluntarioForm" EventoVoluntario="eventoVoluntario" OnSubmit="Create" ReturnAction="Return" />
+
+@code {
+    private EventoVoluntario eventoVoluntario = new EventoVoluntario();
+    private EventoVoluntarioForm eventoVoluntarioForm = new EventoVoluntarioForm();
+
+    private async Task Create()
+    {
+        var responseHttp = await repository.PostAsync("/api/eventosVoluntarios", eventoVoluntario);
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message);
+            return;
+        }
+
+        Return();
+        var toast = sweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+
+        await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con éxito");
+    }
+
+    private void Return()
+    {
+        navigationManager.NavigateTo("/eventosVoluntarios");
+    }
+}

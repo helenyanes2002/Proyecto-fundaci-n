@@ -1,0 +1,88 @@
+﻿@using Fundacion.Shared.Entidades
+@using Fundacion.WEB.Repositories
+@using Fundacion.WEB.Shared
+
+@inject IRepository repository
+@inject SweetAlertService swal
+
+
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation"></NavigationLock>
+
+<EditForm Model="ProgramaBeneficiario" OnSubmit="OnSubmit">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label>Id Programa:</label>
+        <div>
+            <InputNumber @bind-Value="ProgramaBeneficiario.ProgramaId" Step="1"></InputNumber>
+            <ValidationMessage For="@(() => ProgramaBeneficiario.ProgramaId)" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Id Beneficiario:</label>
+        <div>
+            <InputNumber @bind-Value="ProgramaBeneficiario.BeneficiarioId" Step="1"></InputNumber>
+            <ValidationMessage For="@(() => ProgramaBeneficiario.BeneficiarioId)" />
+        </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit"><i class="bi bi-floppy" />Guardar Cambios</button>
+    <button class="btn btn-info" type="reset"><i class="bi bi-x-circle" />Limpiar</button>
+    <button class="btn btn-success" @onclick="ReturnAction"><i class="bi bi-arrow-left" />Regresar</button>
+</EditForm>
+@code {
+
+    private EditContext editContext = null!;
+    protected override void OnInitialized()
+    {
+        editContext = new(ProgramaBeneficiario);
+    }
+
+    [Parameter]
+    [EditorRequired]
+    public ProgramaBeneficiario ProgramaBeneficiario { get; set; } = null!;
+
+    [Parameter]
+    [EditorRequired]
+    public EventCallback OnSubmit { get; set; }
+
+
+    [EditorRequired]
+    [Parameter]
+    public EventCallback ReturnAction { get; set; }
+
+    public bool FormularioPosteadoConExito { get; set; } = false;
+
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        var formularioFueEditado = editContext.IsModified();
+
+        if (!formularioFueEditado)
+        {
+            return;
+        }
+
+        if (FormularioPosteadoConExito)
+        {
+            return;
+        }
+
+        var resultado = await swal.FireAsync(new SweetAlertOptions
+            {
+                Title = "Confirmación",
+                Text = "¿Deseas abandonar la p gina y perder los cambios?",
+                Icon = SweetAlertIcon.Warning,
+                ShowCancelButton = true
+            });
+
+        var confirmado = !string.IsNullOrEmpty(resultado.Value);
+
+        if (confirmado)
+        {
+            return;
+        }
+
+        context.PreventNavigation();
+    }
+}
