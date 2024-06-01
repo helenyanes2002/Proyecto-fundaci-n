@@ -9,7 +9,7 @@ namespace Fundacion.API.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) 
         {
-            //Comennto
+           
         }
 
         public DbSet<Donante> Donantes { get; set; }
