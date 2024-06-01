@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Fundacion.Shared.Enums;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,28 +12,28 @@ namespace Fundacion.Shared.Entidades
     public class User: IdentityUser
     {
 
-        public int Id { get; set; }
-
-        [Display(Name = "Nombre")]
-        [MaxLength(50, ErrorMessage = "No se permiten más de 50 caracteres")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string Nombre { get; set; }
-
-        [Display(Name = "Dirección")]
-        [MaxLength(50, ErrorMessage = "No se permiten más de 50 caracteres")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string Direccion { get; set; }
-
-        [Display(Name = "Correo")]
-        [MaxLength(50, ErrorMessage = "No se permiten más de 50 caracteres")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [EmailAddress(ErrorMessage = "Digite un correo válido")]
-        public string Correo { get; set; }
-
-        [Display(Name = "Teléfono")]
         [MaxLength(20, ErrorMessage = "No se permiten más de 20 dígitos")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string Telefono { get; set; }
+        public string Document { get; set; }
+
+
+        [MaxLength(50, ErrorMessage = "No se permiten más de 50 Caracteres")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public string FirstName { get; set; }
+
+
+        [MaxLength(50, ErrorMessage = "No se permiten más de 50 Caracteres")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public string LastName { get; set; }
+
+
+        public string Address { get; set; }
+
+        [Display(Name = "Foto")]
+        public string Photo { get; set; }
+        public UserType UserType { get; set; }
+
+        public string FullName => $"{FirstName}{LastName}";
 
 
 
