@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace Fundacion.Shared.Entidades
 {
-    public class User: IdentityUser
+    public class User : IdentityUser
     {
-
         [MaxLength(20, ErrorMessage = "No se permiten más de 20 dígitos")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Document { get; set; }
@@ -29,13 +28,13 @@ namespace Fundacion.Shared.Entidades
 
         public string Address { get; set; }
 
-        [Display(Name = "Foto")]
-        public string Photo { get; set; }
+        //Enum
         public UserType UserType { get; set; }
+
 
         public string FullName => $"{FirstName}{LastName}";
 
-
+        
 
     }
 }

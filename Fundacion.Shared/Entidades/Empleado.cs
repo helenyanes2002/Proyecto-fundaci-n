@@ -3,32 +3,45 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Fundacion.Shared.Entidades
 {
     public class Empleado
     {
+      
         public int Id { get; set; }
 
+        [Display(Name = "Documento")]
+        [MaxLength(20, ErrorMessage = "No se permiten más de 20 dígitos")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public string Document { get; set; }
+
+
         [Display(Name = "Nombre")]
-        [MaxLength(50, ErrorMessage = "No se permiten más de 50 caracteres")]
+        [MaxLength(50, ErrorMessage = "No se permiten más de 50 Caracteres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string Nombre { get; set; }
+        public string FirstName { get; set; }
 
-        [Display(Name = "Cargo")]
-        [MaxLength(50, ErrorMessage = "No se permiten más de 50 caracteres")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string Cargo { get; set; }
 
-        [Display(Name = "Fecha de contratación")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Apellido")]
+        [MaxLength(50, ErrorMessage = "No se permiten más de 50 Caracteres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public DateTime Fecha { get; set; }
+        public string LastName { get; set; }
 
-        [Display(Name = "Salario")]
+
+        [Display(Name = "Email")]
+        [MaxLength(50, ErrorMessage = "No se permiten más de 50 Caracteres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int Salario { get; set; }
+        [EmailAddress(ErrorMessage = "Digite un Email válido")]
+        public string Email { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Address { get; set; }
+
+        public string FullName => $"{FirstName}{LastName}";
 
     }
 }

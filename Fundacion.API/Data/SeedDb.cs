@@ -21,7 +21,7 @@ namespace Fundacion.API.Data
             await _context.Database.EnsureCreatedAsync();
             await CheckPetTypesAsync();
             await CheckRolesAsync();
-            await CheckUserAsync("1010", "OAP", "Admin", "orlapez@gmail.com", "305232456", "Cr 45 7896", UserType.Admin);
+            await CheckUserAsync("1103465438", "Helen", "Yanes", "orlapez@gmail.com", "305232456", "Cr 45 7896", UserType.Admin);
 
         }
 
@@ -65,12 +65,12 @@ namespace Fundacion.API.Data
 
         private async Task CheckPetTypesAsync()
         {
-            if (!_context.PetTypes.Any())
+            if (!_context.Voluntarios.Any())
             {
-                _context.PetTypes.Add(new PetType { Name = "Dog" });
-                _context.PetTypes.Add(new PetType { Name = "Cat" });
-                _context.PetTypes.Add(new PetType { Name = "Hamster" });
-                _context.PetTypes.Add(new PetType { Name = "Rabbit" });
+                _context.Voluntarios.Add(new Voluntario { Nombre = "Juan" });
+                _context.Voluntarios.Add(new Voluntario { Nombre = "Anaa" });
+                _context.Voluntarios.Add(new Voluntario { Nombre = "Pedro" });
+                _context.Voluntarios.Add(new Voluntario { Nombre = "Luisa" });
 
             }
 
