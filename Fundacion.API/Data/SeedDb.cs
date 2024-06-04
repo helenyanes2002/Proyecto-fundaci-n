@@ -52,8 +52,8 @@ namespace Fundacion.API.Data
                 };
 
                 await _userHelper.AdduserAsync(user, "123456");
-                //await _userHelper.AddUserToRoleAsync(user, userType.ToString());
-            }
+                await _userHelper.AddUserToRoleAsync(user, userType.ToString());
+            }   
             return user;
         }
 

@@ -1,6 +1,7 @@
 ﻿@page "/Register"
 @using Fundacion.Shared.DTOs
 @using Fundacion.Shared.Enums
+@using Fundacion.WEB.Shared
 @using Fundacion.WEB.AuthenticationProviders;
 @using Fundacion.WEB.Services
 @using Fundacion.Shared
@@ -90,9 +91,9 @@
                             <ValidationMessage For="@(() => userDTO.PasswordConfirm)" />
                         </div>
                     </div>
-
-
-
+                    <div class="mb-3">
+                        <InputImg Label="Foto" ImageSelected="ImageSelected" ImageURL="@imageUrl" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -103,6 +104,19 @@
 </EditForm>
 @code {
     private UserDTO userDTO = new();
+    private string imageUrl;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CreateUserAsync();
+
+        if (!string.IsNullOrEmpty(userDTO.Photo))
+        {
+            imageUrl = userDTO.Photo;
+            userDTO.Photo = null;
+        }
+    }
+
 
     private async Task CreateUserAsync()
     {
@@ -119,4 +133,11 @@
         await loginService.LoginAsync(responseHttp.Response!.Token);
         navigationManager.NavigateTo("/");
     }
+
+    private void ImageSelected(string imagenBase64)
+    {
+        userDTO.Photo = imagenBase64;
+        imageUrl = null;
+    }
+
 }

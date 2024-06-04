@@ -9,8 +9,7 @@ namespace Fundacion.WEB.AuthenticationProviders
         {
             await Task.Delay(3000);
             var anonimous = new ClaimsIdentity();
-            var user = new ClaimsIdentity(authenticationType: "test");
-            var Admin = new ClaimsIdentity(new List<Claim>
+            var oapUser = new ClaimsIdentity(new List<Claim>
             {
                 new Claim("FirstName", "Orlando"),
                 new Claim("LastName", "A"),
@@ -19,7 +18,7 @@ namespace Fundacion.WEB.AuthenticationProviders
             },
             authenticationType: "test");
 
-            return await Task.FromResult(new AuthenticationState(new ClaimsPrincipal(user)));
+            return await Task.FromResult(new AuthenticationState(new ClaimsPrincipal(oapUser)));
         }
     }
 }

@@ -22,8 +22,9 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
     x.Password.RequireDigit = false;
     x.Password.RequiredUniqueChars = 0;
     x.Password.RequireLowercase = false;
+    x.Password.RequireUppercase = false;
     x.Password.RequireNonAlphanumeric = false;
-
+    x.Lockout.AllowedForNewUsers = true;
 })
 
 
@@ -32,9 +33,53 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
 
 builder.Services.AddScoped<IUserHelper, UserHelper>();
 builder.Services.AddTransient < SeedDb > ();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtKey"]!)),
+        ClockSkew = TimeSpan.Zero
+    });
 
 builder.Services.AddSwaggerGen();
- builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=DefaultConnection"));
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fundacion API", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = @"JWT Authorization header using the Bearer scheme. <br /> <br />
+                      Enter 'bearer' [space] and then your token in the text input below.<br /> <br />
+                      Example: 'bearer 12345abcdef'<br /> <br />",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+      {
+        {
+          new OpenApiSecurityScheme
+          {
+            Reference = new OpenApiReference
+              {
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
+              },
+              Scheme = "oauth2",
+              Name = "Bearer",
+              In = ParameterLocation.Header,
+            },
+            new List<string>()
+          }
+        });
+});
+
+
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=DefaultConnection"));
 
 
 var app = builder.Build();
@@ -49,8 +94,8 @@ static void SeedData(WebApplication app)
     {
         var service = scope.ServiceProvider.GetService<SeedDb>();
 
-        var dbContext = scope.ServiceProvider.GetService<DataContext>();
-        dbContext.Database.Migrate();
+        //var dbContext = scope.ServiceProvider.GetService<DataContext>();
+        //dbContext.Database.Migrate();
         service.SeedAsync().Wait();
     }
 
@@ -78,14 +123,5 @@ static void SeedData(WebApplication app)
     app.Run();
 }
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtKey"]!)),
-        ClockSkew = TimeSpan.Zero
-    });
+
 
