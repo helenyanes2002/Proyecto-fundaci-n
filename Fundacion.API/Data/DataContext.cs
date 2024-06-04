@@ -2,6 +2,7 @@
 using Fundacion.Shared.Entidades;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Fundacion.API.Helpers;
 
 namespace Fundacion.API.Data
 {
