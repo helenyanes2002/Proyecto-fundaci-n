@@ -19,7 +19,7 @@ namespace Fundacion.API.Data
         public async Task SeedAsync()
         {
             await _context.Database.EnsureCreatedAsync();
-            await CheckPetTypesAsync();
+            await CheckVolunterAsync();
             await CheckRolesAsync();
             await CheckUserAsync("1103465438", "Helen", "Yanes", "orlapez@gmail.com", "305232456", "Cr 45 7896", UserType.Admin);
 
@@ -52,19 +52,19 @@ namespace Fundacion.API.Data
                 };
 
                 await _userHelper.AdduserAsync(user, "123456");
-                await _userHelper.AddUserToRoleAsync(user, userType.ToString());
+                //await _userHelper.AddUserToRoleAsync(user, userType.ToString());
             }
             return user;
         }
 
-        private async Task CheckPetTypesAsync()
+        private async Task CheckVolunterAsync()
         {
             if (!_context.Voluntarios.Any())
             {
-                _context.Voluntarios.Add(new Voluntario { Nombre = "Juan" });
-                _context.Voluntarios.Add(new Voluntario { Nombre = "Anaa" });
-                _context.Voluntarios.Add(new Voluntario { Nombre = "Pedro" });
-                _context.Voluntarios.Add(new Voluntario { Nombre = "Luisa" });
+                _context.Voluntarios.Add(new Voluntario { Nombre = "Juan",Direccion = "Anaa",Correo = "Pedro", Telefono = "2937937", Disponibilidad = "2 hooras", Area = "n" });
+                _context.Voluntarios.Add(new Voluntario { Nombre = "Luisa", Direccion = "Bello", Correo = "n", Telefono = "i2y382", Disponibilidad = "2 hooras", Area = "n" });
+                _context.Voluntarios.Add(new Voluntario { Nombre = "Marisol", Direccion = "Paris", Correo = "Pendro", Telefono = "2y38", Disponibilidad = "2 hooras", Area = "n" });
+                _context.Voluntarios.Add(new Voluntario { Nombre = "Ximena", Direccion = "Guatemala", Correo = "Pekxkdro", Telefono = "293u793", Disponibilidad = "2 hooras", Area = "n" });
 
             }
 

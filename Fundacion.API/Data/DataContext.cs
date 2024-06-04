@@ -7,9 +7,9 @@ namespace Fundacion.API.Data
 {
     public class DataContext : IdentityDbContext<User>
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options) 
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-           
+
         }
 
         public DbSet<Donante> Donantes { get; set; }
