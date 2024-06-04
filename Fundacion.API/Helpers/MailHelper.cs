@@ -2,7 +2,7 @@
 using MimeKit;
 using Fundacion.Shared.Responses;
 
-namespace Veterinary.API.Helpers
+namespace Fundacion.API.Helpers
 {
     public class MailHelper : IMailHelper
     {

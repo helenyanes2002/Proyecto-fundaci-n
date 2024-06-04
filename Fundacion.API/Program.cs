@@ -16,7 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
-    
+    x.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
     x.SignIn.RequireConfirmedEmail = true;
     x.User.RequireUniqueEmail = true;
     x.Password.RequireDigit = false;
@@ -24,6 +24,8 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
     x.Password.RequireLowercase = false;
     x.Password.RequireUppercase = false;
     x.Password.RequireNonAlphanumeric = false;
+    x.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    x.Lockout.MaxFailedAccessAttempts = 3;
     x.Lockout.AllowedForNewUsers = true;
 })
 
@@ -32,7 +34,12 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
 .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IUserHelper, UserHelper>();
-builder.Services.AddTransient < SeedDb > ();
+builder.Services.AddScoped<IFileStorage, FileStorage>();
+builder.Services.AddScoped<IMailHelper, MailHelper>();
+
+builder.Services.AddTransient <SeedDb> ();
+
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
     {
@@ -44,7 +51,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ClockSkew = TimeSpan.Zero
     });
 
+
 builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -93,10 +102,7 @@ static void SeedData(WebApplication app)
     using (var scope = scopedFactory!.CreateScope())
     {
         var service = scope.ServiceProvider.GetService<SeedDb>();
-
-        //var dbContext = scope.ServiceProvider.GetService<DataContext>();
-        //dbContext.Database.Migrate();
-        service.SeedAsync().Wait();
+        service!.SeedAsync().Wait();
     }
 
 

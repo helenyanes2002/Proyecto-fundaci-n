@@ -1,12 +1,13 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Components.Authorization
 <PageTitle>Home</PageTitle>
-<h1>Fundación</h1>
+<h1>Fundación Niños del Futuro</h1>
+
 <AuthorizeView Roles="Admin">
     <Authorized>
         <p>Estas autenticado y autorizado, @context.User.Identity?.Name</p>
     </Authorized>
     <NotAuthorized>
-        <p>No estas autorizado</p>
+        <p>No estás autorizado</p>
     </NotAuthorized>
 </AuthorizeView>

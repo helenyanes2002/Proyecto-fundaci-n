@@ -7,14 +7,11 @@ namespace Fundacion.WEB.AuthenticationProviders
     {
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            await Task.Delay(3000);
-            var anonimous = new ClaimsIdentity();
             var oapUser = new ClaimsIdentity(new List<Claim>
             {
                 new Claim("FirstName", "Orlando"),
                 new Claim("LastName", "A"),
                 new Claim(ClaimTypes.Name, "orlapez@gmail.com"),
-                new Claim(ClaimTypes.Role, "Admin")
             },
             authenticationType: "test");
 

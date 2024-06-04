@@ -21,10 +21,7 @@ namespace Fundacion.Shared.DTOs
         [Display(Name = "Confirmación de contraseña")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        [StringLength(20,
-            MinimumLength = 6, ErrorMessage = "El campo {0} debe tener entre {2} y {1} carácteres.")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "El campo {0} debe tener entre {2} y {1} carácteres.")]
         public string PasswordConfirm { get; set; } = null!;
-
-        public String Photo { get; set; } = null;
     }
 }

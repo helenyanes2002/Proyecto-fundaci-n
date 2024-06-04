@@ -27,7 +27,9 @@ namespace Fundacion.Shared.Entidades
 
         public string Address { get; set; }
 
-        public String Photo { get; set; }
+
+        [Display(Name = "Foto")]
+        public string Photo { get; set; }
 
         //Enum
         public UserType UserType { get; set; }
