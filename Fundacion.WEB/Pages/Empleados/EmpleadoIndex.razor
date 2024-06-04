@@ -5,7 +5,9 @@
 @inject IRepository repository
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
+@using Microsoft.AspNetCore.Authorization;
 
+@attribute [Authorize(Roles = "Admin")]
 <div class="card">
     <div class="card-header">
         <span>

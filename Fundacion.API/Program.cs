@@ -1,20 +1,18 @@
 using Fundacion.API.Data;
 using Fundacion.API.Helpers;
 using Fundacion.Shared.Entidades;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
-
-
-
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
 {
@@ -79,3 +77,15 @@ static void SeedData(WebApplication app)
     );
     app.Run();
 }
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtKey"]!)),
+        ClockSkew = TimeSpan.Zero
+    });
+

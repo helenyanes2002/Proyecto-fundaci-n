@@ -1,5 +1,6 @@
 ﻿using Fundacion.API.Data;
 using Fundacion.API.Helpers;
+using Fundacion.Shared.DTOs;
 using Fundacion.Shared.Entidades;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,14 @@ namespace Fundacion.API.Helpers
         private readonly DataContext _context;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-       
+        private readonly SignInManager<User> _signInManager;
+
         public UserHelper(DataContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IdentityResult> AdduserAsync(User user, string password)
@@ -53,6 +56,17 @@ namespace Fundacion.API.Helpers
         {
             return await _userManager.IsInRoleAsync(user, roleName);
         }
+
+        public async Task<SignInResult> LoginAsync(LoginDTO model)
+        {
+            return await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
     }
 }
 

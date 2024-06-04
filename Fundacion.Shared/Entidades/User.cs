@@ -25,16 +25,14 @@ namespace Fundacion.Shared.Entidades
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string LastName { get; set; }
 
-
         public string Address { get; set; }
+
+        public String Photo { get; set; }
 
         //Enum
         public UserType UserType { get; set; }
 
-
         public string FullName => $"{FirstName}{LastName}";
-
-        
 
     }
 }

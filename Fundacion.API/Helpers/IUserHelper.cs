@@ -1,4 +1,5 @@
-﻿using Fundacion.Shared.Entidades;
+﻿using Fundacion.Shared.DTOs;
+using Fundacion.Shared.Entidades;
 using Microsoft.AspNetCore.Identity;
 
 namespace Fundacion.API.Helpers
@@ -15,5 +16,10 @@ namespace Fundacion.API.Helpers
         Task AddUserToRoleAsync(User user, string roleName);
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
+
+        Task<SignInResult> LoginAsync(LoginDTO model);
+
+        Task LogoutAsync();
+
     }
 }
