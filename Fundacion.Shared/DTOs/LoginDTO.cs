@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Fundacion.Shared.Entidades;
+using System.ComponentModel.DataAnnotations;
 
 namespace Fundacion.Shared.DTOs
 {

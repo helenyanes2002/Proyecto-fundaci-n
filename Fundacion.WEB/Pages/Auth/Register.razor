@@ -10,16 +10,12 @@
 @inject NavigationManager navigationManager
 @inject ILoginService loginService
 
-
-<h3>Registrar Nuevo Usuario</h3>
 <EditForm Model="userDTO" OnValidSubmit="CreateUserAsync">
     <DataAnnotationsValidator />
 
-    <div class="card">
         <div class="card-header">
             <span>
-                <i class="oi oi-person" /> Registrar Nuevo  Usuario
-                <button class="btn btn-sm btn-primary float-end" type="submit"><i class="bi bi-person-add" /> Registrar</button>
+                <i class="oi oi-person" /> Registrar Nuevo Usuario
             </span>
         </div>
         <div class="card-body">
@@ -94,6 +90,15 @@
                     <div class="mb-3">
                         <InputImg Label="Foto" ImageSelected="ImageSelected" ImageURL="@imageUrl" />
                     </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span>
+                                <button class="btn btn-sm btn-primary float-end" type="submit"><i class="bi bi-person-add" /> Registrar </button>
+                            </span>
+                        </div>
+                    <div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,18 +110,6 @@
 @code {
     private UserDTO userDTO = new();
     private string imageUrl;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await CreateUserAsync();
-
-        if (!string.IsNullOrEmpty(userDTO.Photo))
-        {
-            imageUrl = userDTO.Photo;
-            userDTO.Photo = null;
-        }
-    }
-
 
     private async Task CreateUserAsync()
     {

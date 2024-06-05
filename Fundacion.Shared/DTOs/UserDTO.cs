@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Fundacion.Shared.Entidades;
 
 namespace Fundacion.Shared.DTOs
 {

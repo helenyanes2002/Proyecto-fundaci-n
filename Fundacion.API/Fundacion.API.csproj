@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Fundacion.Shared\Fundacion.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\users\" />
+  </ItemGroup>
+
 </Project>

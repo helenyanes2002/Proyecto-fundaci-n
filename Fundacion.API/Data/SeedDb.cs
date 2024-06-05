@@ -21,7 +21,7 @@ namespace Fundacion.API.Data
             await _context.Database.EnsureCreatedAsync();
             await CheckVolunterAsync();
             await CheckRolesAsync();
-            await CheckUserAsync("1103465438", "Helen", "Yanes", "orlapez@gmail.com", "305232456", "Cr 45 7896", UserType.Admin);
+            await CheckUserAsync("1010", "OAP", "Admin", "maryorimontoya1113908@gmail.com", "305232456", "Cr 45 7896", UserType.Admin);
 
         }
 
