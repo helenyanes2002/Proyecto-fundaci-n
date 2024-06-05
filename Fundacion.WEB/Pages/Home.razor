@@ -1,13 +1,21 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Components.Authorization
-<PageTitle>Home</PageTitle>
+
 <h1>Fundación Niños del Futuro</h1>
 
+<PageTitle>Home</PageTitle>
 <AuthorizeView Roles="Admin">
     <Authorized>
-        <p>Estas autenticado y autorizado, @context.User.Identity?.Name</p>
+        <strong>¡Estás autenticado en el sistema!,@context.User.Identity?.Name</strong>
     </Authorized>
     <NotAuthorized>
-        <p>No estás autorizado</p>
+        <strong>¡No estás autenticado en el sistema!</strong>
     </NotAuthorized>
+
 </AuthorizeView>
+<div class="align-items-center">
+    <img src="https://storaged7.blob.core.windows.net/users/lab1.png" />
+</div>
+
+
+

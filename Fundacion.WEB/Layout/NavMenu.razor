@@ -1,8 +1,6 @@
-﻿@using Microsoft.AspNetCore.Components.Authorization
-
-<div class="top-row ps-3 navbar navbar-dark">
+﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Fundacón.WEB</a>
+        <a class="navbar-brand" href="">Navigation Menu</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -13,99 +11,143 @@
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-bi-globe-americas" aria-hidden="true"></span> Home
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
             </NavLink>
         </div>
 
+        <AuthorizeView Roles="Admin">
+            <Authorized>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/beneficiarios">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Beneficiarios
+            <NavLink class="nav-link" href="Beneficiarios">
+                <span aria-hidden="true"><i class="bi bi-grid-1x2-fill"></i></span> Beneficiarios
             </NavLink>
         </div>
+             </Authorized>
+        </AuthorizeView>
 
+        <AuthorizeView Roles="Admin">
+            <Authorized>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="donacionesMateriales">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> DonacionesMateriales
+                    <NavLink class="nav-link" href="donacionMateriales">
+                <span aria-hidden="true"><i class="bi bi-hdd-rack-fill"></i></span> Donacion Material
             </NavLink>
         </div>
+            </Authorized>
+        </AuthorizeView>
 
+        <AuthorizeView Roles="Admin">
+            <Authorized>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="donacionesMonetarias">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> DonacionesMonetarias
+                    <NavLink class="nav-link" href="donacionesMonetarias">
+                <span aria-hidden="true"><i class="bi bi-people-fill"></i></span> Donacion Monetaria
             </NavLink>
         </div>
+            </Authorized>
+        </AuthorizeView>
 
-
+        <AuthorizeView Roles="Admin">
+            <Authorized>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="donacionesMonetariasGastos">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> DonacionesMonetariasGastos
+                <span aria-hidden="true"><i class="bi bi-cash-coin"></i></span> Donacion Monetaria Gasto
             </NavLink>
         </div>
+            </Authorized>
+        </AuthorizeView>
 
+        <AuthorizeView Roles="Admin">
+            <Authorized>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="donantes">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Donantes
+                <span aria-hidden="true"><i class="bi bi-person-fill-gear"></i></span> Donante
             </NavLink>
         </div>
+            </Authorized>
+        </AuthorizeView>
+
+         <AuthorizeView Roles="Admin">
+            <Authorized>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="empleados">
+                <span aria-hidden="true"><i class="bi bi-tools"></i></span>  Empleado
+            </NavLink>
+        </div>
+            </Authorized>
+        </AuthorizeView>
+
+       <AuthorizeView Roles="Admin">
+            <Authorized>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="eventos">
+                <span aria-hidden="true"><i class="bi bi-exclamation-triangle-fill"></i></span> Evento
+            </NavLink>
+        </div>
+            </Authorized>
+        </AuthorizeView>
+
+          <AuthorizeView Roles="Admin">
+            <Authorized>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="eventosvoluntarios">
+                <span aria-hidden="true"><i class="bi bi-exclamation-triangle-fill"></i></span> Evento Voluntario
+            </NavLink>
+        </div>
+            </Authorized>
+        </AuthorizeView>
+
+          <AuthorizeView Roles="Admin">
+            <Authorized>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="gastos">
+                <span aria-hidden="true"><i class="bi bi-exclamation-triangle-fill"></i></span> Gasto
+            </NavLink>
+        </div>
+            </Authorized>
+        </AuthorizeView>
+
+          <AuthorizeView Roles="Admin">
+            <Authorized>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="programas">
+                <span aria-hidden="true"><i class="bi bi-exclamation-triangle-fill"></i></span> Programa
+            </NavLink>
+        </div>
+            </Authorized>
+        </AuthorizeView>
+
+          <AuthorizeView Roles="Admin">
+            <Authorized>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="programasBeneficiarios">
+                <span aria-hidden="true"><i class="bi bi-exclamation-triangle-fill"></i></span> Programa Beneficiario
+            </NavLink>
+        </div>
+            </Authorized>
+        </AuthorizeView>
+
         <AuthorizeView Roles="Admin">
             <Authorized>
                 <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="empleados">
-                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Empleados
+                    <NavLink class="nav-link" href="voluntarios">
+                        <span aria-hidden="true"><i class="bi bi-exclamation-triangle-fill"></i></span> Voluntario
                     </NavLink>
                 </div>
             </Authorized>
         </AuthorizeView>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="eventos">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Eventos
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="eventosVoluntarios">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> EventosVoluntarios
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="gastos">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Gastos
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="programas">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Programas
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="programasBeneficiarios">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> ProgramasBeneficiarios
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="voluntarios">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Voluntarios
-            </NavLink>
-        </div>
-
-
-
+       
     </nav>
 </div>
 
 @code {
     private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
 }
+
+
 

@@ -13,5 +13,9 @@
         Task<HttpResponseWrapper<object>> PutAsync<T>(string url, T model);
 
         Task<HttpResponseWrapper<TActionResponse>> PutAsync<T, TActionResponse>(string url, T model);
+
+
+        Task<HttpResponseWrapper<object>> Get(string url);
+        Task<HttpResponseWrapper<T>> Get<T>(string url);
     }
 }
