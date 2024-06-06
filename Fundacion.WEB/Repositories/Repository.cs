@@ -83,5 +83,16 @@ namespace Fundacion.WEB.Repositories
             var response = await responseHttp.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<T>(response, _jsonDefaultOptions)!;
         }
+
+        public async Task<HttpResponseWrapper<object>> Get(string url)
+        {
+            var responseHTTP = await _httpClient.GetAsync(url);
+            return new HttpResponseWrapper<object>(null, !responseHTTP.IsSuccessStatusCode, responseHTTP);
+        }
+
+        public Task<HttpResponseWrapper<T>> Get<T>(string url)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

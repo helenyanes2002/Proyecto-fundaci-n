@@ -1,0 +1,161 @@
+﻿@page "/Register"
+@using Fundacion.Shared.DTOs
+@using Fundacion.Shared.Enums
+@using Fundacion.WEB.Shared
+@using Fundacion.WEB.AuthenticationProviders;
+@using Fundacion.WEB.Services
+@using Fundacion.Shared
+@inject IRepository repository
+@inject SweetAlertService sweetAlertService
+@inject NavigationManager navigationManager
+@inject ILoginService loginService
+
+<EditForm Model="userDTO" OnValidSubmit="CreateUserAsync">
+    <DataAnnotationsValidator />
+
+        <div class="card-header">
+            <span>
+                <i class="oi oi-person" /> Registrar Nuevo Usuario
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label>Nombres:</label>
+                        <div>
+                            <InputText width="10" @bind-Value="@userDTO.FirstName" />
+                            <ValidationMessage For="@(() => userDTO.FirstName)" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label>Apellidos:</label>
+                        <div>
+                            <InputText width="10" @bind-Value="@userDTO.LastName" />
+                            <ValidationMessage For="@(() => userDTO.LastName)" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label>Documento:</label>
+                        <div>
+                            <InputText width="10" @bind-Value="@userDTO.Document" />
+                            <ValidationMessage For="@(() => userDTO.Document)" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label>Teléfono:</label>
+                        <div>
+                            <InputText width="10" @bind-Value="@userDTO.PhoneNumber" />
+                            <ValidationMessage For="@(() => userDTO.PhoneNumber)" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label>Dirección:</label>
+                        <div>
+                            <InputText width="10" @bind-Value="@userDTO.Address" />
+                            <ValidationMessage For="@(() => userDTO.Address)" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label>Email:</label>
+                        <div>
+                            <InputText width="10" @bind-Value="@userDTO.Email" />
+                            <ValidationMessage For="@(() => userDTO.Email)" />
+                        </div>
+                    </div>
+
+
+
+                    <div class="mb-3">
+                        <label>Foto:</label>
+                        <div>
+                            <InputText width="10" @bind-Value="@userDTO.Photo" />
+                            <ValidationMessage For="@(() => userDTO.Photo)" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label>Contraseña:</label>
+                        <div>
+                            <InputText type="password" width="10" @bind-Value="@userDTO.Password" />
+                            <ValidationMessage For="@(() => userDTO.Password)" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label>Confirmación de contraseña:</label>
+                        <div>
+                            <InputText type="password" width="10" @bind-Value="@userDTO.PasswordConfirm" />
+                            <ValidationMessage For="@(() => userDTO.PasswordConfirm)" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <InputImg Label="Foto" ImageSelected="ImageSelected" ImageURL="@imageUrl" />
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span>
+                                <button class="btn btn-sm btn-primary float-end" type="submit"><i class="bi bi-person-add" /> Registrar </button>
+                            </span>
+                        </div>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</EditForm>
+        @code {
+        private UserDTO userDTO = new();
+        private string imageUrl;
+        [Parameter]
+        [SupplyParameterFromQuery]
+        public bool IsAdmin { get; set; }
+        protected override async Task OnInitializedAsync()
+        {
+            await CreateUserAsync();
+
+            if (!string.IsNullOrEmpty(userDTO.Photo))
+            {
+                imageUrl = userDTO.Photo;
+                userDTO.Photo = null;
+            }
+        }
+
+
+        private async Task CreateUserAsync()
+        {
+            userDTO.UserName = userDTO.Email;
+            if (IsAdmin)
+            {
+                userDTO.UserType = UserType.Admin;
+            }
+            else
+            {
+                userDTO.UserType = UserType.User;
+            }
+
+
+            var responseHttp = await repository.PostAsync<UserDTO>("/api/accounts/CreateUser", userDTO);
+            if (responseHttp.Error)
+            {
+                var message = await responseHttp.GetErrorMessageAsync();
+                await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+                return;
+            }
+
+            await sweetAlertService.FireAsync("Confirmación", "Su cuenta ha sido creada con éxito. Se te ha enviado un correo electrónico con las instrucciones para activar tu usuario.", SweetAlertIcon.Info);
+            navigationManager.NavigateTo("/");
+        }
+
+
+
+        private void ImageSelected(string imagenBase64)
+        {
+            userDTO.Photo = imagenBase64;
+            imageUrl = null;
+        }
+
+    }

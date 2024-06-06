@@ -1,5 +1,21 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+
+<h1>Fundación Niños del Futuro</h1>
 
 <PageTitle>Home</PageTitle>
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <strong>¡Estás autenticado en el sistema!,@context.User.Identity?.Name</strong>
+    </Authorized>
+    <NotAuthorized>
+        <strong>¡No estás autenticado en el sistema!</strong>
+    </NotAuthorized>
 
-<h1>Fundación</h1>
+</AuthorizeView>
+<div class="align-items-center">
+    <img src="https://e7.pngegg.com/pngimages/101/314/png-transparent-cute-colorful-happy-kids-thumbnail.png" />
+</div>
+
+
+
