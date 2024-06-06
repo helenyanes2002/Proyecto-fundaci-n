@@ -90,5 +90,9 @@ namespace Fundacion.WEB.Repositories
             return new HttpResponseWrapper<object>(null, !responseHTTP.IsSuccessStatusCode, responseHTTP);
         }
 
+        public Task<HttpResponseWrapper<T>> Get<T>(string url)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

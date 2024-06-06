@@ -1,15 +1,15 @@
-﻿
-@page "/EditUser"
+﻿@page "/EditUser"
 @using CurrieTechnologies.Razor.SweetAlert2;
 @using Fundacion.Shared.Entidades;
 @using Fundacion.WEB.Pages.Auth;
 @using Fundacion.WEB.Repositories;
-@using Fundacion.WEB.Services
+@using Fundacion.WEB.Services;
 @using Fundacion.Shared.DTOs;
 @inject IRepository repository
 @inject SweetAlertService sweetAlertService
 @inject NavigationManager navigationManager
 @inject ILoginService loginService
+
 @if (user is null)
 {
     <div class="spinner" />
@@ -47,7 +47,7 @@ else
                         <div class="mb-3">
                             <label>Documento:</label>
                             <div>
-                                <InputText width="10"  @bind-Value="@user.Document" />
+                                <InputText width="10" @bind-Value="@user.Document" />
                                 <ValidationMessage For="@(() => user.Document)" />
                             </div>
                         </div>
@@ -61,13 +61,12 @@ else
                         <div class="mb-3">
                             <label>Dirección:</label>
                             <div>
-                                <InputText width="10"  @bind-Value="@user.Address" />
+                                <InputText width="10" @bind-Value="@user.Address" />
                                 <ValidationMessage For="@(() => user.Address)" />
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
-                        
                         <div class="mb-3">
                             <InputImg Label="Foto" ImageSelected="ImageSelected" ImageURL="@imageUrl" />
                         </div>
@@ -84,17 +83,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadUserAsyc();
+        await LoadUserAsync();
 
         if (!string.IsNullOrEmpty(user!.Photo))
         {
             imageUrl = user.Photo;
             user.Photo = null;
         }
-
     }
 
-    private async Task LoadUserAsyc()
+    private async Task LoadUserAsync()
     {
         var responseHTTP = await repository.GetAsync<User>($"/api/accounts");
         if (responseHTTP.Error)
@@ -108,7 +106,7 @@ else
             await sweetAlertService.FireAsync("Error", messageError, SweetAlertIcon.Error);
             return;
         }
-        User user = responseHTTP.Response;
+        user = responseHTTP.Response;
     }
 
     private void ImageSelected(string imagenBase64)
@@ -116,12 +114,6 @@ else
         user!.Photo = imagenBase64;
         imageUrl = null;
     }
-
- 
-
-
-
-    
 
     private async Task SaveUserAsync()
     {
@@ -137,3 +129,5 @@ else
         navigationManager.NavigateTo("/");
     }
 }
+
+
