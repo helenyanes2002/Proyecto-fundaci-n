@@ -108,9 +108,10 @@ static void SeedData(WebApplication app)
 
     if (app.Environment.IsDevelopment())
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
+       
     }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
 
 
