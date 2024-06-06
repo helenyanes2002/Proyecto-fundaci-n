@@ -84,14 +84,11 @@ namespace Fundacion.WEB.Repositories
             return JsonSerializer.Deserialize<T>(response, _jsonDefaultOptions)!;
         }
 
-        public Task<HttpResponseWrapper<object>> Get(string url)
+        public async Task<HttpResponseWrapper<object>> Get(string url)
         {
-            throw new NotImplementedException();
+            var responseHTTP = await _httpClient.GetAsync(url);
+            return new HttpResponseWrapper<object>(null, !responseHTTP.IsSuccessStatusCode, responseHTTP);
         }
 
-        public Task<HttpResponseWrapper<T>> Get<T>(string url)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -38,11 +38,11 @@ namespace Fundacion.API.Controllers
             User user = model;
 
 
-            if (!string.IsNullOrEmpty(model.Photo))
-            {
-                var photoUser = Convert.FromBase64String(model.Photo);
-                model.Photo = await _fileStorage.SaveFileAsync(photoUser, ".jpg", _container);
-            }
+            //if (!string.IsNullOrEmpty(model.Photo))
+            //{
+            //    var photoUser = Convert.FromBase64String(model.Photo);
+            //    //model.Photo = await _fileStorage.SaveFileAsync(photoUser, ".jpg", _container);
+            //}
 
 
 
@@ -58,8 +58,8 @@ namespace Fundacion.API.Controllers
                 }, HttpContext.Request.Scheme, _configuration["UrlWEB"]);
 
                 var response = _mailHelper.SendMail(user.FullName, user.Email!,
-                    $"Fundación- Confirmación de cuenta",
-                    $"<h1>Fundación - Confirmación de cuenta</h1>" +
+                    $"Veterinarys- Confirmación de cuenta",
+                    $"<h1>Veterinary - Confirmación de cuenta</h1>" +
                     $"<p>Para habilitar el usuario, por favor hacer clic 'Confirmar Email':</p>" +
                     $"<b><a href ={tokenLink}>Confirmar Email</a></b>");
 
@@ -111,7 +111,7 @@ namespace Fundacion.API.Controllers
                 new Claim("FirstName", user.FirstName),
                 new Claim("LastName", user.LastName),
                 new Claim("Address", user.Address),
-                new Claim("Photo", user.Photo ?? string.Empty)
+                //new Claim("Photo", user.Photo ?? string.Empty)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwtKey"]!));
@@ -154,7 +154,7 @@ namespace Fundacion.API.Controllers
                 currentUser.LastName = user.LastName;
                 currentUser.Address = user.Address;
                 currentUser.PhoneNumber = user.PhoneNumber;
-                currentUser.Photo = !string.IsNullOrEmpty(user.Photo) && user.Photo != currentUser.Photo ? user.Photo : currentUser.Photo;
+                //currentUser.Photo = !string.IsNullOrEmpty(user.Photo) && user.Photo != currentUser.Photo ? user.Photo : currentUser.Photo;
 
                 var result = await _userHelper.UpdateUserAsync(currentUser);
                 if (result.Succeeded)
@@ -236,8 +236,8 @@ namespace Fundacion.API.Controllers
             }, HttpContext.Request.Scheme, _configuration["UrlWEB"]);
 
             var response = _mailHelper.SendMail(user.FullName, user.Email!,
-                $"Fundación- Confirmación de cuenta",
-                $"<h1>Fundación - Confirmación de cuenta</h1>" +
+                $"Veterinarys- Confirmación de cuenta",
+                $"<h1>Veterinary - Confirmación de cuenta</h1>" +
                 $"<p>Para habilitar el usuario, por favor hacer clic 'Confirmar Email':</p>" +
                 $"<b><a href ={tokenLink}>Confirmar Email</a></b>");
 
@@ -266,8 +266,8 @@ namespace Fundacion.API.Controllers
             }, HttpContext.Request.Scheme, _configuration["UrlWEB"]);
 
             var response = _mailHelper.SendMail(user.FullName, user.Email!,
-                $"Fundación - Recuperación de contraseña",
-                $"<h1>Fundación - Recuperación de contraseña</h1>" +
+                $"Veterinary - Recuperación de contraseña",
+                $"<h1>Veterinary - Recuperación de contraseña</h1>" +
                 $"<p>Para recuperar su contraseña, por favor hacer clic 'Recuperar Contraseña':</p>" +
                 $"<b><a href ={tokenLink}>Recuperar Contraseña</a></b>");
 
@@ -296,7 +296,6 @@ namespace Fundacion.API.Controllers
 
             return BadRequest(result.Errors.FirstOrDefault()!.Description);
         }
-
-
     }
+
 }
