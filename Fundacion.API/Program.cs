@@ -111,6 +111,9 @@ static void SeedData(WebApplication app)
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+
+
     app.UseHttpsRedirection();
 
     app.UseAuthentication();
