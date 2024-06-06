@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Fundacion.API.Helpers;
 using Fundacion.Shared.DTOs;
@@ -41,7 +40,7 @@ namespace Fundacion.API.Controllers
             //if (!string.IsNullOrEmpty(model.Photo))
             //{
             //    var photoUser = Convert.FromBase64String(model.Photo);
-            //    //model.Photo = await _fileStorage.SaveFileAsync(photoUser, ".jpg", _container);
+            //    model.Photo = await _fileStorage.SaveFileAsync(photoUser, ".jpg", _container);
             //}
 
 
@@ -154,7 +153,7 @@ namespace Fundacion.API.Controllers
                 currentUser.LastName = user.LastName;
                 currentUser.Address = user.Address;
                 currentUser.PhoneNumber = user.PhoneNumber;
-                //currentUser.Photo = !string.IsNullOrEmpty(user.Photo) && user.Photo != currentUser.Photo ? user.Photo : currentUser.Photo;
+                currentUser.Photo = !string.IsNullOrEmpty(user.Photo) && user.Photo != currentUser.Photo ? user.Photo : currentUser.Photo;
 
                 var result = await _userHelper.UpdateUserAsync(currentUser);
                 if (result.Succeeded)
@@ -236,8 +235,8 @@ namespace Fundacion.API.Controllers
             }, HttpContext.Request.Scheme, _configuration["UrlWEB"]);
 
             var response = _mailHelper.SendMail(user.FullName, user.Email!,
-                $"Veterinarys- Confirmación de cuenta",
-                $"<h1>Veterinary - Confirmación de cuenta</h1>" +
+                $"Fundación Niños del Futuro- Confirmación de cuenta",
+                $"<h1>Fundación Niños del Futuro - Confirmación de cuenta</h1>" +
                 $"<p>Para habilitar el usuario, por favor hacer clic 'Confirmar Email':</p>" +
                 $"<b><a href ={tokenLink}>Confirmar Email</a></b>");
 
@@ -266,8 +265,8 @@ namespace Fundacion.API.Controllers
             }, HttpContext.Request.Scheme, _configuration["UrlWEB"]);
 
             var response = _mailHelper.SendMail(user.FullName, user.Email!,
-                $"Veterinary - Recuperación de contraseña",
-                $"<h1>Veterinary - Recuperación de contraseña</h1>" +
+                $"Fundación Niños del Futuro - Recuperación de contraseña",
+                $"<h1>Fundación Niños del Futuro - Recuperación de contraseña</h1>" +
                 $"<p>Para recuperar su contraseña, por favor hacer clic 'Recuperar Contraseña':</p>" +
                 $"<b><a href ={tokenLink}>Recuperar Contraseña</a></b>");
 

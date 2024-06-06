@@ -20,6 +20,8 @@ namespace Fundacion.API.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
+
         [HttpGet]
         public async Task<ActionResult> Get()
         {
@@ -38,8 +40,7 @@ namespace Fundacion.API.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult> Get(int id)
         {
-            var empleado = await
-            _context.Empleados.SingleOrDefaultAsync(x => x.Id == id);
+            var empleado = await _context.Empleados.FirstOrDefaultAsync(x => x.Id == id);
 
             if (empleado == null)
             {
@@ -73,6 +74,23 @@ namespace Fundacion.API.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet("combo")]
+        public async Task<ActionResult> GetCombo()
+        {
+            return Ok(await _context.Empleados.ToListAsync());
+        }
+
+        [AllowAnonymous]
+        [HttpGet("combo/{EmpleadoId:int}")]
+        public async Task<ActionResult> GetCombo(int EmpleadoId)
+        {
+            return Ok(await _context.Empleados
+                .Where(x => x.Id == EmpleadoId)
+                .ToListAsync());
         }
     }
 }

@@ -20,6 +20,8 @@ namespace Fundacion.API.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
+
         [HttpGet]
         public async Task<ActionResult> Get()
         {
@@ -38,14 +40,12 @@ namespace Fundacion.API.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult> Get(int id)
         {
-            var beneficiario = await
-            _context.EventosVoluntarios.SingleOrDefaultAsync(x => x.Id == id);
-
-            if (beneficiario == null)
+            var eventoVoluntario = await _context.EventosVoluntarios.FirstOrDefaultAsync(x => x.Id == id);
+            if (eventoVoluntario == null)
             {
                 return NotFound();
             }
-            return Ok(beneficiario);
+            return Ok(eventoVoluntario);
         }
 
         //Método de actualizar
@@ -73,6 +73,22 @@ namespace Fundacion.API.Controllers
                 return NotFound();
             }
             return NoContent();
+        }
+
+        [AllowAnonymous]
+        [HttpGet("combo")]
+        public async Task<ActionResult> GetCombo()
+        {
+            return Ok(await _context.EventosVoluntarios.ToListAsync());
+        }
+
+        [AllowAnonymous]
+        [HttpGet("combo/{EventoVoluntarioId:int}")]
+        public async Task<ActionResult> GetCombo(int EventoVoluntarioId)
+        {
+            return Ok(await _context.EventosVoluntarios
+                .Where(x => x.Id == EventoVoluntarioId)
+                .ToListAsync());
         }
     }
 }

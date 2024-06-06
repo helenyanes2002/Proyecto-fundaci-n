@@ -20,6 +20,8 @@ namespace Fundacion.API.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
+
         [HttpGet]
         public async Task<ActionResult> Get()
         {
@@ -38,14 +40,13 @@ namespace Fundacion.API.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult> Get(int id)
         {
-            var beneficiario = await
-            _context.DonacionesMonetariasGastos.SingleOrDefaultAsync(x => x.Id == id);
+            var donacionMonetariaGasto = await _context.DonacionesMonetariasGastos.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (beneficiario == null)
+            if (donacionMonetariaGasto == null)
             {
                 return NotFound();
             }
-            return Ok(beneficiario);
+            return Ok(donacionMonetariaGasto);
         }
 
         //Método de actualizar
@@ -74,6 +75,32 @@ namespace Fundacion.API.Controllers
             }
             return NoContent();
         }
+
+        [AllowAnonymous]
+        [HttpGet("combo")]
+        public async Task<ActionResult> GetCombo()
+        {
+            return Ok(await _context.DonacionesMonetariasGastos.ToListAsync());
+        }
+
+        [AllowAnonymous]
+        [HttpGet("combo/{DonacionesMonetariaId:int}")]
+        public async Task<ActionResult> GetCombo(int DonacionesMonetariaId)
+        {
+            return Ok(await _context.DonacionesMonetariasGastos
+                .Where(x => x.Id == DonacionesMonetariaId)
+                .ToListAsync());
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }
 
